@@ -10,6 +10,7 @@
       "C:\\Users\\VIvanchuk\\.nuget\\packages",
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ],
+    "DecisionConection": "Data Source=db_test;Initial Catalog=Decision;Persist Security Info=True;User ID=@@uid;Password=@@pass;Timeout=300",
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
     }

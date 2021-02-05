@@ -1,0 +1,8 @@
+C:\IComp\ICompAccounting\AccountingContext\bin\Debug\netcoreapp3.1\AccountingContext.deps.json
+C:\IComp\ICompAccounting\AccountingContext\bin\Debug\netcoreapp3.1\AccountingContext.dll
+C:\IComp\ICompAccounting\AccountingContext\bin\Debug\netcoreapp3.1\AccountingContext.pdb
+C:\IComp\ICompAccounting\AccountingContext\obj\Debug\netcoreapp3.1\AccountingContext.AssemblyInfoInputs.cache
+C:\IComp\ICompAccounting\AccountingContext\obj\Debug\netcoreapp3.1\AccountingContext.AssemblyInfo.cs
+C:\IComp\ICompAccounting\AccountingContext\obj\Debug\netcoreapp3.1\AccountingContext.dll
+C:\IComp\ICompAccounting\AccountingContext\obj\Debug\netcoreapp3.1\AccountingContext.pdb
+C:\IComp\ICompAccounting\AccountingContext\obj\Debug\netcoreapp3.1\AccountingContext.csprojAssemblyReference.cache

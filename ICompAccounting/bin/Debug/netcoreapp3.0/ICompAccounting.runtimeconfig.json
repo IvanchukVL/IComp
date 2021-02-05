@@ -1,0 +1,10 @@
+{
+  "runtimeOptions": {
+    "tfm": "netcoreapp3.0",
+    "framework": {
+      "name": "Microsoft.WindowsDesktop.App",
+      "version": "3.0.0"
+    },
+    "DecisionConection": "Data Source=db_test;Initial Catalog=Decision;Persist Security Info=True;User ID=@@uid;Password=@@pass;Timeout=300"
+  }
+}
