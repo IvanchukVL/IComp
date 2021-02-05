@@ -23,6 +23,7 @@ namespace ICompAccounting
     {
         List<vmenu> MenuList;
         Repository db;
+        Enterprise ent;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +32,9 @@ namespace ICompAccounting
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MenuList = await db.GetMenu(1);
+            ent = await db.GetEnterprise(1);
+            Title = ent.Name;
+            MenuList = await db.GetMenu(1); 
             SetMenu(0, cMenu.Items);
         }
 

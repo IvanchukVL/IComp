@@ -1,0 +1,18 @@
+{
+  "runtimeOptions": {
+    "tfm": "netcoreapp3.0",
+    "framework": {
+      "name": "Microsoft.WindowsDesktop.App",
+      "version": "3.0.0"
+    },
+    "additionalProbingPaths": [
+      "C:\\Users\\VIvanchuk\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\VIvanchuk\\.nuget\\packages",
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "DecisionConection": "Data Source=db_test;Initial Catalog=Decision;Persist Security Info=True;User ID=@@uid;Password=@@pass;Timeout=300",
+    "configProperties": {
+      "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
+    }
+  }
+}
