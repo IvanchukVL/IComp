@@ -1,0 +1,8 @@
+C:\IComp\ICompAccounting\AccountingContext\bin\Release\netcoreapp2.2\AccountingContext.deps.json
+C:\IComp\ICompAccounting\AccountingContext\bin\Release\netcoreapp2.2\AccountingContext.dll
+C:\IComp\ICompAccounting\AccountingContext\bin\Release\netcoreapp2.2\AccountingContext.pdb
+C:\IComp\ICompAccounting\AccountingContext\obj\Release\netcoreapp2.2\AccountingContext.csprojAssemblyReference.cache
+C:\IComp\ICompAccounting\AccountingContext\obj\Release\netcoreapp2.2\AccountingContext.AssemblyInfoInputs.cache
+C:\IComp\ICompAccounting\AccountingContext\obj\Release\netcoreapp2.2\AccountingContext.AssemblyInfo.cs
+C:\IComp\ICompAccounting\AccountingContext\obj\Release\netcoreapp2.2\AccountingContext.dll
+C:\IComp\ICompAccounting\AccountingContext\obj\Release\netcoreapp2.2\AccountingContext.pdb

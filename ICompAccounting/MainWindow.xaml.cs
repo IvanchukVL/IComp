@@ -1,4 +1,4 @@
-﻿using AccountingContext.dl;
+﻿using ICompAccounting.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,36 +21,13 @@ namespace ICompAccounting
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<vmenu> MenuList;
-        Repository db;
-        Enterprise ent;
+        //List<vmenu> MenuList;
+        //Repository db;
+        //Enterprise ent;
         public MainWindow()
         {
             InitializeComponent();
-            db = new Repository(Properties.Resources.AccountingConnection);
+            DataContext = new MainModelView();
         }
-
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ent = await db.GetEnterprise(1);
-            Title = ent.Name;
-            MenuList = await db.GetMenu(1); 
-            SetMenu(0, cMenu.Items);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void SetMenu(int? ParentId, ItemCollection Collection)
-        {
-            foreach (vmenu row in MenuList.Where(x => x.ParentId == ParentId))
-            {
-                int index = Collection.Add(new MenuItem() { Header = row.Name });
-                MenuItem item = (MenuItem)Collection[index];
-                SetMenu(row.MenuId, item.Items);
-            }
-        }
-
-
     }
 }
