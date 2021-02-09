@@ -5,19 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICompAccounting"
         mc:Ignorable="d"
-        Height="450" Width="1000" WindowState="Maximized" Title="{Binding Title}">
-
+        Height="450" Width="1000" WindowState="Maximized" 
+        Title="{Binding Title}" FontSize="20" >
     <Grid VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu DockPanel.Dock="Top" ItemsSource="{Binding Path=MainMenu}">
+        <Menu DockPanel.Dock="Top" ItemsSource="{Binding Path=MainMenu}" >
             <Menu.ItemContainerStyle>
                 <Style>
                     <Setter Property="MenuItem.Header" Value="{Binding Header}" />
                     <Setter Property="MenuItem.ItemsSource" Value="{Binding Path=Items}" />
                     <Setter Property="MenuItem.Command" Value="{Binding Path=Command}" />
+                    <Setter Property="MenuItem.FontSize" Value="13"/>
+                    <Setter Property="MenuItem.FontWeight" Value="{Binding Delay=100, Path=FontWeight}"/>
                 </Style>
             </Menu.ItemContainerStyle>
         </Menu>

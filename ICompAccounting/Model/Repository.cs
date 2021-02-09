@@ -24,16 +24,39 @@ namespace ICompAccounting.Model
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                return dc.vMenu.FromSqlRaw($"SELECT UserId,MenuId,Name,Command,ParentId FROM dbo.vMenu WHERE UserId={UserId}").ToList();
+                return dc.vMenu.FromSqlRaw($"SELECT UserId,MenuId,Name,Command,ParentId,Bold FROM dbo.vMenu WHERE UserId={UserId}").ToList();
             }
         }
 
-        public Enterprise GetEnterprise(int? Id)
+        public List<vEnterprise> GetEnterprises()
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                var list = dc.Enterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,ZKPO FROM dbo.Enterprise WHERE Id ={Id}").ToList();
-                return list[0];
+                return dc.vEnterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,EDRPOU FROM dbo.Enterprise").ToList();
+            }
+        }
+
+        public List<vReferenceValue> GetReferenceValues(string ReferenceCode)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                string Sql = "SELECT Id,ReferenceCode,Value,Description,Dat1,Dat2,Sort " +
+                                            "FROM dbo.vReferenceValues " +
+                                           $"WHERE ReferenceCode='{ReferenceCode}' " +
+                                            "ORDER BY Sort";
+                return dc.vReferenceValues.FromSqlRaw(Sql).ToList();
+            }
+        }
+
+        public vUser GetUser(string Login)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                List<vUser> list = dc.vUsers.FromSqlRaw($"SELECT Id,Login,PIB,AuthenticationType,Status FROM dbo.vUsers WHERE Login='{Login}'").ToList();
+                if (list.Count > 0)
+                    return list[0];
+                else
+                    return null;
             }
         }
 

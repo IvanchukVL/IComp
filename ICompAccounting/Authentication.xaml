@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICompAccounting"
         mc:Ignorable="d"
-        Title="Аутентифікація користувача" Height="237" Width="431">
+        Title="Аутентифікація користувача" 
+        Height="237" 
+        Width="431" 
+        FontSize="12" 
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"></RowDefinition>
@@ -13,23 +22,50 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Аутентифікація" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" />
-            <ComboBox x:Name="ComboAuthorizationType" Grid.Row="1" Grid.Column="2" 
+
+            <DataGrid Grid.Row="0" 
+                      Grid.ColumnSpan="2" 
+                      Margin="5 5 5 5" 
+                      ItemsSource="{Binding Enterprises}" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      HorizontalAlignment="Center" 
                       SelectedValuePath="Id" 
-                      DisplayMemberPath="Name"
-                      ItemsSource="{Binding AuthenticationTypeList}" 
-                      SelectedValue="{Binding AuthenticationType, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedEnterprise}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Підриємство" Binding="{Binding Path=Name}" Width="4*" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Код ЄДРПОУ" Binding="{Binding Path=EDRPOU}" Width="2*" HeaderStyle="{StaticResource CenterGridHeaderStyle}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Аутентифікація" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <ComboBox x:Name="ComboAuthorizationType" Grid.Row="1" Grid.Column="1" 
+                      SelectedValuePath="Value" 
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding AuthenticationModeList}" 
+                      SelectedValue="{Binding AuthenticationMode, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
                       Width="250" 
-                      Height="25" 
-                      />
+                      Height="23" 
+                      >
+                <ComboBox.Style>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="true">
+                                <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self}, 
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
         </Grid>
         <Button x:Name="ButLog" 
                 Content="Підтвердити" 

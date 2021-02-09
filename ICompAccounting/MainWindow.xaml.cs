@@ -27,7 +27,7 @@ namespace ICompAccounting
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainModelView();
+            DataContext = new MainMV();
         }
     }
 }

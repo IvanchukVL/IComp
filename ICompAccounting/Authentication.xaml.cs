@@ -1,4 +1,5 @@
-﻿using ICompAccounting.ModelView;
+﻿using ICompAccounting.Model;
+using ICompAccounting.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,14 +22,19 @@ namespace ICompAccounting
         public Authorization()
         {
             InitializeComponent();
-            DataContext = new AuthenticationModelView();
+            DataContext = new AuthenticationMV();
 
         }
 
         private void ButLog_Click(object sender, RoutedEventArgs e)
         {
-            ((AuthenticationModelView)DataContext).LoginCommand.Execute(null);
-            this.Close();
+            Cursor = Cursors.Wait;
+            Result Res = ((AuthenticationMV)DataContext).LoginCommand();
+            Cursor = Cursors.Arrow;
+            if (Res.Res == true)
+                Close();
+            else
+                MessageBox.Show(Res.Message);
         }
     }
 }
