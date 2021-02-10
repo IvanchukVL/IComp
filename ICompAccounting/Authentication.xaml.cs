@@ -23,7 +23,7 @@ namespace ICompAccounting
         {
             InitializeComponent();
             DataContext = new AuthenticationMV();
-
+            this.Enterprices.Focus();
         }
 
         private void ButLog_Click(object sender, RoutedEventArgs e)

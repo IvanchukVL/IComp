@@ -30,7 +30,8 @@
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <DataGrid Grid.Row="0" 
+            <DataGrid x:Name="Enterprices"
+                      Grid.Row="0" 
                       Grid.ColumnSpan="2" 
                       Margin="5 5 5 5" 
                       ItemsSource="{Binding Enterprises}" 
@@ -46,7 +47,7 @@
             </DataGrid>
 
             <Label Content="Аутентифікація" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <ComboBox x:Name="ComboAuthorizationType" Grid.Row="1" Grid.Column="1" 
+            <ComboBox x:Name="ComboAuthorizationType" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0"
                       SelectedValuePath="Value" 
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding AuthenticationModeList}" 
@@ -54,17 +55,6 @@
                       Width="250" 
                       Height="23" 
                       >
-                <ComboBox.Style>
-                    <Style TargetType="{x:Type ComboBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="true">
-                                <Setter Property="ToolTip"
-                Value="{Binding RelativeSource={RelativeSource Self}, 
-                       Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ComboBox.Style>
             </ComboBox>
         </Grid>
         <Button x:Name="ButLog" 

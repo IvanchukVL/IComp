@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -31,6 +33,10 @@ namespace ICompAccounting.ModelView
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Аутентифікація користувача
+        /// </summary>
+        /// <returns></returns>
         public Result LoginCommand()
         {
             if (SelectedEnterprise == null)
@@ -40,12 +46,25 @@ namespace ICompAccounting.ModelView
                 return new Result(false, "1", "Не вибрано спосіб аутентифікації!");
 
             //Визначення користувача
+            IPrincipal principal = Thread.CurrentPrincipal;
+            IIdentity identity = principal.Identity;
+            if (!identity.IsAuthenticated)
+                return new Result(false) { Message = "Користувач не аутентифікований!" };
 
-            Application.Current.Properties["User"] = db.GetUser("VIvanchuk"); 
-            Application.Current.Properties["Enterprise"] = SelectedEnterprise;
-            new MainWindow().Show();
-            MessageBox.Show($"Команда {AuthenticationMode}");
-            return new Result(true);
+
+
+            vUser DbUser = db.GetUser(identity.Name);
+            if (DbUser != null)
+            {
+                Application.Current.Properties["User"] = DbUser;
+                Application.Current.Properties["Enterprise"] = SelectedEnterprise;
+                new MainWindow().Show();
+                //MessageBox.Show($"Команда {AuthenticationMode}");
+                return new Result(true);
+            }
+            else
+                return new Result(false) { Message = "Користувач не зареєстрований в програмному комплексі!" };
+
         }
 
         //public AppCommand LoginCommand
