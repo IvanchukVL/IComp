@@ -169,13 +169,7 @@ namespace ICompAccounting.ModelView
         public int int_Sequence { get; set; }
         public int int_KeyIndex { get; set; }
         public bool Bold { get; set; }
-        public string FontWeight 
-        {
-            get
-            {
-                return Bold == true ? "Bold" : "Normal";
-            } 
-        }
+        public string FontWeight { get{ return Bold == true ? "Bold" : "Normal"; }}
 
     }
 

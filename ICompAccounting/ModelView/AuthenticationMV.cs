@@ -21,6 +21,7 @@ namespace ICompAccounting.ModelView
             db = new Repository(Properties.Resources.AccountingConnection);
             AuthenticationModeList = new ObservableCollection<vReferenceValue>(db.GetReferenceValues("AuthenticationMode"));
             Enterprises = db.GetEnterprises();
+            SelectedEnterprise = Enterprises[0];
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
