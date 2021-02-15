@@ -28,6 +28,14 @@ namespace ICompAccounting.Model
             }
         }
 
+        public List<Period> GetPeriods()
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.Periods.FromSqlRaw($"SELECT Id,Code,description,ParentId,Status FROM dbo.Periods WHERE Status=1").ToList();
+            }
+        }
+
         public List<vEnterprise> GetEnterprises()
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,18 @@ namespace ICompAccounting
         {
             InitializeComponent();
             DataContext = new MainMV();
+            tbYear.PreviewTextInput += (DataContext as MainMV).NumberValidationTextBox;
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(Period.Items.Count.ToString());
+        }
+
+        private void TreeViewItem_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

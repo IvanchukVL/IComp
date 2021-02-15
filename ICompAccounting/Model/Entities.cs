@@ -47,6 +47,16 @@ namespace ICompAccounting.Model
         public int? Sort { set; get; }
     }
 
+    public class Period
+    {
+        [Key]
+        public int Id { set; get; }
+        public string Code { set; get; }
+        public string Description { set; get; }
+        public int? ParentId { set; get; }
+        public int? Status { set; get; }
+    }
+
     public class Result
     {
         public Result(bool res)

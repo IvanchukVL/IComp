@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICompAccounting"
         mc:Ignorable="d"
-        Height="450" Width="1000" WindowState="Maximized" 
-        Title="{Binding Title}" FontSize="20" >
-    <Grid VerticalAlignment="Top">
+        Height="450" Width="1500" WindowState="Maximized" 
+        Title="{Binding Title}" FontFamily="Tahoma">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="23"></RowDefinition>
+            <RowDefinition Height="23"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu DockPanel.Dock="Top" ItemsSource="{Binding Path=MainMenu}" >
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Fill="#F0F4F8" />
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Top" ItemsSource="{Binding Path=MainMenu}" >
             <Menu.ItemContainerStyle>
                 <Style>
                     <Setter Property="MenuItem.Header" Value="{Binding Header}" />
@@ -23,6 +29,46 @@
                 </Style>
             </Menu.ItemContainerStyle>
         </Menu>
-        <Rectangle Grid.Row="1" Fill="AliceBlue" />
+        <Rectangle Grid.Column="1" Grid.Row="1" Fill="#F0F4F8" />
+        <StackPanel x:Name="stackPanel" Grid.Row="2">
+            <!--<StackPanel.Resources>
+                <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Margin" Value="0,10,0,0"/>
+                </Style>
+            </StackPanel.Resources>-->
+            <RadioButton x:Name="rbDateFilter" IsChecked="{Binding rbDateFilter}" Content="Фільтр по даті" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" FontSize="13" GroupName="DatFiltr" />
+            <GroupBox Margin="0 5 0 5" >
+                <StackPanel x:Name="tbDateFilter" IsEnabled="{Binding tbDateFilterEnabled}">
+                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                        <Label Content="Початrова дата" Width="100"/>
+                        <DatePicker Name="Dat1" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                        <Label Content="Кінцева дата" Width="100"/>
+                        <DatePicker Name="Dat2" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <RadioButton x:Name="rbPeriodFilter"  IsChecked="{Binding rbPeriodFilter}" Content="Фільтр по періоду" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" FontSize="13" GroupName="DatFiltr" />
+            <GroupBox Margin="0 5 0 5" >
+                <StackPanel x:Name="tbPeriodFilter" IsEnabled="{Binding tbPeriodFilterEnabled}">
+                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                        <Label Content="Рік" Width="30"/>
+                        <TextBox x:Name="tbYear" Width="100" />
+                    </StackPanel>
+                    <TreeView x:Name="Period" ItemsSource="{Binding Path=Nodes}">
+                        <TreeView.ItemContainerStyle >
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <!--<Setter Property="IsSelected" Value="{Binding IsSelected}" />-->
+                                    <Setter Property="Header" Value="{Binding Header}" />
+                                    <Setter Property="ItemsSource" Value="{Binding Path=Nodes}" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        
+        <!--<Button Click="Button_Click" />-->
     </Grid>
 </Window>

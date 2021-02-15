@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -15,18 +16,23 @@ namespace ICompAccounting.ModelView
     public class MainMV : INotifyPropertyChanged
     {
         Repository db;
-        List<vmenu> _MenuList;
-        vEnterprise _Enterprise;
+        //List<vmenu> _MenuList;
+        //vEnterprise _Enterprise;
         ObservableCollection<MenuItem> _MainMenu;
 
         public MainMV()
         {
             db = new Repository(Properties.Resources.AccountingConnection);
-            _Enterprise = (vEnterprise)Application.Current.Properties["Enterprise"];
+            Enterprise = (vEnterprise)Application.Current.Properties["Enterprise"];
             MenuList = db.GetMenu(((vUser)Application.Current.Properties["User"]).Id);
+            PeriodList = db.GetPeriods();
 
             MainMenu = new ObservableCollection<MenuItem>();
-            SetMenu(0, _MainMenu);
+            SetMenu(0, MainMenu);
+            Nodes = new ObservableCollection<Node>();
+            SetPeriod(0, Nodes);
+
+
         }
 
         private AppCommand addCommand;
@@ -49,32 +55,82 @@ namespace ICompAccounting.ModelView
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public List<vmenu> MenuList
+        bool _rbDateFilter = false;
+        public bool rbDateFilter
         {
             set
             {
-                _MenuList=value;
+                tbDateFilterEnabled = value;
+                _rbDateFilter = value;
+                OnPropertyChanged("rbDatesFilter");
             }
 
             get
             {
-                return _MenuList;
+                return _rbDateFilter;
             }
         }
 
-        public vEnterprise Enterprise
+        bool _rbPeriodFilter = false;
+        public bool rbPeriodFilter
         {
+            set
+            {
+                tbPeriodFilterEnabled = value;
+                _rbPeriodFilter = value;
+                OnPropertyChanged("rbDatesFilter");
+            }
+
             get
             {
-                return _Enterprise;
+                return _rbPeriodFilter;
             }
+        }
+
+
+        bool _tbDatesFilterEnabled;
+        public bool tbDateFilterEnabled
+        {
+            set
+            {
+                _tbDatesFilterEnabled = value;
+                OnPropertyChanged("tbDateFilterEnabled");
+            }
+            get
+            {
+                return _tbDatesFilterEnabled;
+            }
+        }
+
+        bool _tbPeriodFilterEnabled;
+        public bool tbPeriodFilterEnabled
+        {
+            set
+            {
+                _tbPeriodFilterEnabled = value;
+                OnPropertyChanged("tbPeriodFilterEnabled");
+            }
+            get
+            {
+                return _tbPeriodFilterEnabled;
+            }
+        }
+
+        public ObservableCollection<Node> Nodes { get; set; }
+        public List<vmenu> MenuList { set; get; }
+        public List<Period> PeriodList { set; get; }
+
+        public vEnterprise Enterprise
+        {
+            set;
+            get;
         }
 
         public string Title
         {
             get
             {
-                return $"{_Enterprise.Name} {_Enterprise.Account} {((vUser)Application.Current.Properties["User"]).PIB}";
+                return $"{Enterprise.Name} {Enterprise.Account} {((vUser)Application.Current.Properties["User"]).PIB}";
             }
         }
 
@@ -86,6 +142,12 @@ namespace ICompAccounting.ModelView
             {
                 _MainMenu = value;
             }
+        }
+
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void SetMenu(int? ParentId, ObservableCollection<MenuItem> Collection)
@@ -112,6 +174,20 @@ namespace ICompAccounting.ModelView
                 SetMenu(row.MenuId, CurMenu.Items);
             }
         }
+
+        private void SetPeriod(int? ParentId, ObservableCollection<Node> Collection)
+        {
+            foreach (Period row in PeriodList.Where(x => x.ParentId == ParentId))
+            {
+                PropertyInfo info = null;
+                Node node;
+                node = new Node(row.Code, row.Description);
+
+                Collection.Add(node);
+                SetPeriod(row.Id, node.Nodes);
+            }
+        }
+
     }
 
 
@@ -169,8 +245,27 @@ namespace ICompAccounting.ModelView
         public int int_Sequence { get; set; }
         public int int_KeyIndex { get; set; }
         public bool Bold { get; set; }
-        public string FontWeight { get{ return Bold == true ? "Bold" : "Normal"; }}
+        public string FontWeight { get { return Bold == true ? "Bold" : "Normal"; } }
 
+    }
+
+    public class Node
+    {
+        public Node(string name, string header)
+        {
+            Header = header;
+            Name = name;
+        }
+
+        private ObservableCollection<Node> _Nodes;
+        public ObservableCollection<Node> Nodes
+        {
+            get { return _Nodes ?? (_Nodes = new ObservableCollection<Node>()); }
+            set { _Nodes = value; }
+        }
+
+        public string Name { get; set; }
+        public string Header { get; set; }
     }
 
 }

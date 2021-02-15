@@ -8,6 +8,7 @@ namespace ICompAccounting.Model
     public class AccountingContext : DbContext
     {
         public DbSet<vmenu> vMenu { get; set; }
+        public DbSet<Period> Periods { get; set; }
         public DbSet<vReferenceValue> vReferenceValues { get; set; }
         public DbSet<vEnterprise> vEnterprises { get; set; }
         public DbSet<vUser> vUsers { get; set; }
