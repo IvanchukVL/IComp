@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ICompAccounting.ModelView
 {
@@ -30,7 +31,7 @@ namespace ICompAccounting.ModelView
             MainMenu = new ObservableCollection<MenuItem>();
             SetMenu(0, MainMenu);
             Nodes = new ObservableCollection<Node>();
-            SetPeriod(0, Nodes);
+            SetPeriod(Nodes,null, 12);
 
 
         }
@@ -61,8 +62,10 @@ namespace ICompAccounting.ModelView
             set
             {
                 tbDateFilterEnabled = value;
+                if (value)
+                    rbPeriodFilter = false;
                 _rbDateFilter = value;
-                OnPropertyChanged("rbDatesFilter");
+                OnPropertyChanged("rbDateFilter");
             }
 
             get
@@ -71,14 +74,16 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        bool _rbPeriodFilter = false;
+        bool _rbPeriodFilter = true;
         public bool rbPeriodFilter
         {
             set
             {
                 tbPeriodFilterEnabled = value;
+                if (value)
+                    rbDateFilter = false;
                 _rbPeriodFilter = value;
-                OnPropertyChanged("rbDatesFilter");
+                OnPropertyChanged("rbPeriodFilter");
             }
 
             get
@@ -102,7 +107,7 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        bool _tbPeriodFilterEnabled;
+        bool _tbPeriodFilterEnabled = true;
         public bool tbPeriodFilterEnabled
         {
             set
@@ -119,6 +124,8 @@ namespace ICompAccounting.ModelView
         public ObservableCollection<Node> Nodes { get; set; }
         public List<vmenu> MenuList { set; get; }
         public List<Period> PeriodList { set; get; }
+        public DateTime? Dat1 { set; get; } = DateTime.Now.AddDays(-DateTime.Now.Day+1);
+        public DateTime? Dat2 { set; get; } = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.Day);
 
         public vEnterprise Enterprise
         {
@@ -175,21 +182,54 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        private void SetPeriod(int? ParentId, ObservableCollection<Node> Collection)
+        private void SetPeriod(ObservableCollection<Node> Collection, Node Parent,  int? SelectedId)
         {
+            int? ParentId = Parent == null ? 0 : Parent.Id;
             foreach (Period row in PeriodList.Where(x => x.ParentId == ParentId))
             {
                 PropertyInfo info = null;
                 Node node;
-                node = new Node(row.Code, row.Description);
+                node = new Node(row.Id, row.Code, row.Description);
+                if (ParentId == 0)
+                    node.IsExpanded = true;
+
+                if (node.Id == SelectedId)
+                {
+                    if (Parent != null)
+                        Parent.IsExpanded = true;
+                    node.IsSelected = true;
+                }
 
                 Collection.Add(node);
-                SetPeriod(row.Id, node.Nodes);
+                SetPeriod(node.Nodes, node, SelectedId);
             }
         }
 
-    }
 
+        public Node GetSelectedPeriod()
+        {
+            return GetSelectedPeriod(Nodes);
+        }
+
+        private Node GetSelectedPeriod(ObservableCollection<Node> Periods)
+        {
+            Node res;
+            foreach (Node node in Periods)
+            {
+                if (node.IsSelected)
+                    return node;
+
+                if (node.Nodes != null)
+                {
+                    res = GetSelectedPeriod(node.Nodes);
+                    if (res != null)
+                        return res;
+                }
+            }
+
+            return null;
+        }
+    }
 
     public class MenuItem
     {
@@ -251,10 +291,11 @@ namespace ICompAccounting.ModelView
 
     public class Node
     {
-        public Node(string name, string header)
+        public Node(int id, string name, string header)
         {
-            Header = header;
+            Id = id;
             Name = name;
+            Header = header;
         }
 
         private ObservableCollection<Node> _Nodes;
@@ -264,8 +305,11 @@ namespace ICompAccounting.ModelView
             set { _Nodes = value; }
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Header { get; set; }
+        public bool IsSelected { get; set; }
+        public bool IsExpanded { get; set; }
     }
 
 }

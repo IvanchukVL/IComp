@@ -29,18 +29,18 @@ namespace ICompAccounting
         {
             InitializeComponent();
             DataContext = new MainMV();
-            tbYear.PreviewTextInput += (DataContext as MainMV).NumberValidationTextBox;
+            //tbYear.PreviewTextInput += (DataContext as MainMV).NumberValidationTextBox;
+            //Period.Focus();
+
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void button_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(Period.Items.Count.ToString());
+            //var list = (DataContext as MainMV).Nodes.Where(x => x.IsSelected == true).ToList();
+            //var ddd = list.Count;
+            var res = (DataContext as MainMV).GetSelectedPeriod();
         }
 
-        private void TreeViewItem_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
     }
 }

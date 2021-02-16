@@ -30,45 +30,47 @@
             </Menu.ItemContainerStyle>
         </Menu>
         <Rectangle Grid.Column="1" Grid.Row="1" Fill="#F0F4F8" />
-        <StackPanel x:Name="stackPanel" Grid.Row="2">
-            <!--<StackPanel.Resources>
-                <Style TargetType="{x:Type RadioButton}">
-                    <Setter Property="Margin" Value="0,10,0,0"/>
+        <StackPanel Grid.Row="2">
+            <StackPanel.Resources>
+                <Style TargetType="Expander">
+                    <Setter Property="Margin" Value="0 0 0 3 " />
                 </Style>
-            </StackPanel.Resources>-->
-            <RadioButton x:Name="rbDateFilter" IsChecked="{Binding rbDateFilter}" Content="Фільтр по даті" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" FontSize="13" GroupName="DatFiltr" />
-            <GroupBox Margin="0 5 0 5" >
-                <StackPanel x:Name="tbDateFilter" IsEnabled="{Binding tbDateFilterEnabled}">
-                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                        <Label Content="Початrова дата" Width="100"/>
-                        <DatePicker Name="Dat1" />
+            </StackPanel.Resources>
+            <Expander Header="Фільтр по даті" IsExpanded="{Binding rbDateFilter}" BorderBrush="DarkGray">
+                <StackPanel x:Name="tbDateFilter" IsEnabled="{Binding tbDateFilterEnabled}" Margin="0 0 0 0">
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                            <Label Content="Початrова дата" Width="100"/>
+                            <DatePicker Name="Dat1" SelectedDate="{Binding Dat1}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                            <Label Content="Кінцева дата" Width="100"/>
+                            <DatePicker Name="Dat2"  SelectedDate="{Binding Dat2}"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                        <Label Content="Кінцева дата" Width="100"/>
-                        <DatePicker Name="Dat2" />
-                    </StackPanel>
-                </StackPanel>
-            </GroupBox>
-            <RadioButton x:Name="rbPeriodFilter"  IsChecked="{Binding rbPeriodFilter}" Content="Фільтр по періоду" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" FontSize="13" GroupName="DatFiltr" />
-            <GroupBox Margin="0 5 0 5" >
-                <StackPanel x:Name="tbPeriodFilter" IsEnabled="{Binding tbPeriodFilterEnabled}">
+            </Expander>
+            <Expander Header="Фільтр по періоду" IsExpanded="{Binding rbPeriodFilter}" BorderBrush="DarkGray" >
+                <StackPanel x:Name="tbPeriodFilter" IsEnabled="{Binding tbPeriodFilterEnabled}" Margin="0 0 0 0">
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
                         <Label Content="Рік" Width="30"/>
-                        <TextBox x:Name="tbYear" Width="100" />
+                        <TextBox x:Name="tbYear" Width="100" Text="{Binding Value, StringFormat=N2}" />
                     </StackPanel>
                     <TreeView x:Name="Period" ItemsSource="{Binding Path=Nodes}">
                         <TreeView.ItemContainerStyle >
-                                <Style TargetType="{x:Type TreeViewItem}">
-                                    <!--<Setter Property="IsSelected" Value="{Binding IsSelected}" />-->
-                                    <Setter Property="Header" Value="{Binding Header}" />
-                                    <Setter Property="ItemsSource" Value="{Binding Path=Nodes}" />
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                                <Setter Property="Header" Value="{Binding Header}" />
+                                <Setter Property="ItemsSource" Value="{Binding Path=Nodes}" />
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </TreeView>
                 </StackPanel>
-            </GroupBox>
+            </Expander>
+            <Button Content="Застосувати" Width="100" Height="25" HorizontalAlignment="Center"  Click="button_click" />
         </StackPanel>
-        
-        <!--<Button Click="Button_Click" />-->
+        <TabControl Grid.Column="2" Grid.Row="2" >
+            <TabItem Header="Голо"></TabItem>
+            <TabItem></TabItem>
+        </TabControl>
     </Grid>
 </Window>
