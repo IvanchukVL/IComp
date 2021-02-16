@@ -44,7 +44,24 @@ namespace ICompAccounting.ModelView
                 return
                   (addCommand = new AppCommand(obj =>
                   {
-                      MessageBox.Show("Запуск команди!");
+                      //Page1 page = new Page1();
+                      PageContent = "Page1.xaml";
+                      //MessageBox.Show("Запуск команди!");
+                  }));
+            }
+        }
+
+        private AppCommand editCommand;
+        public AppCommand EditCommand
+        {
+            get
+            {
+                return
+                  (addCommand = new AppCommand(obj =>
+                  {
+                      //Page1 page = new Page1();
+                      PageContent = "Page2.xaml";
+                      //MessageBox.Show("Запуск команди!");
                   }));
             }
         }
@@ -126,6 +143,20 @@ namespace ICompAccounting.ModelView
         public List<Period> PeriodList { set; get; }
         public DateTime? Dat1 { set; get; } = DateTime.Now.AddDays(-DateTime.Now.Day+1);
         public DateTime? Dat2 { set; get; } = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.Day);
+        string _PageContent;
+        public string PageContent 
+        { 
+            set
+            {
+                _PageContent = value;
+                OnPropertyChanged("PageContent");
+
+            }
+            get
+            {
+                return _PageContent;
+            }
+        }
 
         public vEnterprise Enterprise
         {

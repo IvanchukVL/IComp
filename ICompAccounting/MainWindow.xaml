@@ -8,6 +8,13 @@
         Height="450" Width="1500" WindowState="Maximized" 
         Title="{Binding Title}" FontFamily="Tahoma">
     <Grid>
+    <Grid.LayoutTransform>
+        <ScaleTransform x:Name="ApplicationScaleTransform"
+                    CenterX="0"
+                    CenterY="0"
+                    ScaleX="1.1"
+                    ScaleY="1.1" />
+    </Grid.LayoutTransform>        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -24,13 +31,13 @@
                     <Setter Property="MenuItem.Header" Value="{Binding Header}" />
                     <Setter Property="MenuItem.ItemsSource" Value="{Binding Path=Items}" />
                     <Setter Property="MenuItem.Command" Value="{Binding Path=Command}" />
-                    <Setter Property="MenuItem.FontSize" Value="13"/>
+                    <Setter Property="MenuItem.FontSize" Value="12"/>
                     <Setter Property="MenuItem.FontWeight" Value="{Binding Delay=100, Path=FontWeight}"/>
                 </Style>
             </Menu.ItemContainerStyle>
         </Menu>
         <Rectangle Grid.Column="1" Grid.Row="1" Fill="#F0F4F8" />
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="2" Grid.RowSpan="2">
             <StackPanel.Resources>
                 <Style TargetType="Expander">
                     <Setter Property="Margin" Value="0 0 0 3 " />
@@ -68,9 +75,7 @@
             </Expander>
             <Button Content="Застосувати" Width="100" Height="25" HorizontalAlignment="Center"  Click="button_click" />
         </StackPanel>
-        <TabControl Grid.Column="2" Grid.Row="2" >
-            <TabItem Header="Голо"></TabItem>
-            <TabItem></TabItem>
-        </TabControl>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Visible" Source="{Binding PageContent}" Grid.Column="1"  Grid.Row="2" >
+        </Frame>
     </Grid>
 </Window>

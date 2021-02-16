@@ -37,9 +37,8 @@ namespace ICompAccounting
 
         private void button_click(object sender, RoutedEventArgs e)
         {
-            //var list = (DataContext as MainMV).Nodes.Where(x => x.IsSelected == true).ToList();
-            //var ddd = list.Count;
-            var res = (DataContext as MainMV).GetSelectedPeriod();
+            //this.MainFrame.Navigate(new Page1());
+            MainFrame.GoBack();
         }
 
     }
