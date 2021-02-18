@@ -20,6 +20,24 @@ namespace ICompAccounting.Model
             OptionsBuilder.UseSqlServer(ConnectionString);
         }
 
+
+        /// <summary>
+        /// Універсальний клас для оновлення даних
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Rows"></param>
+        public void Update<T>(string Table, params T[] Rows) where T:class
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                Type type = dc.GetType();
+                DbSet<T> tb = (DbSet<T>) type.GetProperty(Table).GetValue(dc);
+                tb.UpdateRange(Rows);
+                dc.SaveChanges();
+            }
+        }
+
+
         public List<vmenu> GetMenu(int? UserId)
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
@@ -36,11 +54,11 @@ namespace ICompAccounting.Model
             }
         }
 
-        public List<vEnterprise> GetEnterprises()
+        public List<Enterprise> GetEnterprises()
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                return dc.vEnterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,EDRPOU FROM dbo.Enterprise").ToList();
+                return dc.Enterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,EDRPOU,Year,Period FROM dbo.Enterprises").ToList();
             }
         }
 

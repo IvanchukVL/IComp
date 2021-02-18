@@ -4,16 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICompAccounting"
+        xmlns:mv="clr-namespace:ICompAccounting.ModelView"
         mc:Ignorable="d"
         Height="450" Width="1500" WindowState="Maximized" 
         Title="{Binding Title}" FontFamily="Tahoma">
+    <Window.Resources>
+        <Style x:Key="Font11" TargetType="Control">
+            <Setter Property="FontFamily" Value="Tahoma" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <mv:MainMV/>
+    </Window.DataContext>
     <Grid>
     <Grid.LayoutTransform>
         <ScaleTransform x:Name="ApplicationScaleTransform"
                     CenterX="0"
                     CenterY="0"
-                    ScaleX="1.1"
-                    ScaleY="1.1" />
+                    ScaleX="1.0"
+                    ScaleY="1.0" />
     </Grid.LayoutTransform>        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -43,7 +53,7 @@
                     <Setter Property="Margin" Value="0 0 0 3 " />
                 </Style>
             </StackPanel.Resources>
-            <Expander Header="Фільтр по даті" IsExpanded="{Binding rbDateFilter}" BorderBrush="DarkGray">
+            <Expander Header="Фільтр по даті" IsExpanded="{Binding rbDateFilter}" BorderBrush="DarkGray" Style="{StaticResource Font11}">
                 <StackPanel x:Name="tbDateFilter" IsEnabled="{Binding tbDateFilterEnabled}" Margin="0 0 0 0">
                         <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
                             <Label Content="Початrова дата" Width="100"/>
@@ -55,13 +65,14 @@
                         </StackPanel>
                     </StackPanel>
             </Expander>
-            <Expander Header="Фільтр по періоду" IsExpanded="{Binding rbPeriodFilter}" BorderBrush="DarkGray" >
+            <Expander Header="Фільтр по періоду" IsExpanded="{Binding rbPeriodFilter}" BorderBrush="DarkGray"  Style="{StaticResource Font11}" >
                 <StackPanel x:Name="tbPeriodFilter" IsEnabled="{Binding tbPeriodFilterEnabled}" Margin="0 0 0 0">
-                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                         <Label Content="Рік" Width="30"/>
-                        <TextBox x:Name="tbYear" Width="100" Text="{Binding Value, StringFormat=N2}" />
+                        <TextBox x:Name="tbYear" Width="50" MaxLength="4" Height="20" Padding="0 2 0 0" Text="{Binding Year, StringFormat='0'}" />
+                        <!--<wpfx:LongUpDown Name="tbYear" Width="50" Minimum="2000" Maximum="2090" Text="{Binding Year}"  />-->
                     </StackPanel>
-                    <TreeView x:Name="Period" ItemsSource="{Binding Path=Nodes}">
+                    <TreeView x:Name="Period" ItemsSource="{Binding Path=Nodes}" Margin="5 5 5 5" >
                         <TreeView.ItemContainerStyle >
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
@@ -71,11 +82,11 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </TreeView>
+                    <Button Content="Застосувати" Width="100" Height="25" HorizontalAlignment="Center"   Click="button_click" />
                 </StackPanel>
             </Expander>
-            <Button Content="Застосувати" Width="100" Height="25" HorizontalAlignment="Center"  Click="button_click" />
         </StackPanel>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Visible" Source="{Binding PageContent}" Grid.Column="1"  Grid.Row="2" >
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Visible" Content="{Binding PageContent}" Grid.Column="1"  Grid.Row="2" >
         </Frame>
     </Grid>
 </Window>

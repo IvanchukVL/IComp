@@ -1,4 +1,5 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.WpBank;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,16 +25,38 @@ namespace ICompAccounting.ModelView
         public MainMV()
         {
             db = new Repository(Properties.Resources.AccountingConnection);
-            Enterprise = (vEnterprise)Application.Current.Properties["Enterprise"];
+            Enterprise = (Enterprise)Application.Current.Properties["Enterprise"];
             MenuList = db.GetMenu(((vUser)Application.Current.Properties["User"]).Id);
             PeriodList = db.GetPeriods();
 
             MainMenu = new ObservableCollection<MenuItem>();
             SetMenu(0, MainMenu);
             Nodes = new ObservableCollection<Node>();
-            SetPeriod(Nodes,null, 12);
+            Year = Enterprise.Year;
+            SetPeriod(Nodes,null, Enterprise.Period);
 
 
+        }
+
+        public void setent()
+        {
+            Enterprise.Year = Year;
+            Enterprise.Period = GetSelectedPeriod().Id;
+            db.Update<Enterprise>("Enterprises", Enterprise);
+        }
+
+        private AppCommand openDayOperation;
+        public AppCommand OpenDayOperation
+        {
+            get
+            {
+                return
+                  (openDayOperation = new AppCommand(obj =>
+                  {
+                      ActiveWindow = new DayOperations(this);
+                      PageContent = ActiveWindow.Content;
+                  }));
+            }
         }
 
         private AppCommand addCommand;
@@ -91,7 +114,7 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        bool _rbPeriodFilter = true;
+        bool _rbPeriodFilter = false;
         public bool rbPeriodFilter
         {
             set
@@ -138,13 +161,29 @@ namespace ICompAccounting.ModelView
             }
         }
 
+        Window _ActiveWindow;
+        public Window ActiveWindow { set; get; }
         public ObservableCollection<Node> Nodes { get; set; }
         public List<vmenu> MenuList { set; get; }
         public List<Period> PeriodList { set; get; }
         public DateTime? Dat1 { set; get; } = DateTime.Now.AddDays(-DateTime.Now.Day+1);
         public DateTime? Dat2 { set; get; } = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.Day);
-        string _PageContent;
-        public string PageContent 
+        int? _Year;
+        public int? Year 
+        { 
+            set
+            {
+                _Year = value;
+                OnPropertyChanged("Year");
+            }
+            get
+            {
+                return _Year;
+            }
+        }
+
+        object _PageContent;
+        public object PageContent 
         { 
             set
             {
@@ -158,7 +197,7 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        public vEnterprise Enterprise
+        public Enterprise Enterprise
         {
             set;
             get;

@@ -1,4 +1,6 @@
-﻿using ICompAccounting.ModelView;
+﻿using ICompAccounting.Model;
+using ICompAccounting.ModelView;
+using ICompAccounting.WpBank;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +30,17 @@ namespace ICompAccounting
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainMV();
+            //DataContext = new MainMV();
+
+
             //tbYear.PreviewTextInput += (DataContext as MainMV).NumberValidationTextBox;
             //Period.Focus();
-
-
         }
 
         private void button_click(object sender, RoutedEventArgs e)
         {
-            //this.MainFrame.Navigate(new Page1());
-            MainFrame.GoBack();
+
+            (((DataContext as MainMV).ActiveWindow as DayOperations).DataContext as DayOperationsMV).Title="Інші операції";
         }
 
     }

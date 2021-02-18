@@ -12,15 +12,24 @@
     <Compile Update="Authentication.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WpBank\DayOperations.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Page1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Page2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WpBank\Window1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Authentication.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpBank\DayOperations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -30,6 +39,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Page2.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpBank\Window1.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

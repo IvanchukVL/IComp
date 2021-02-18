@@ -16,8 +16,8 @@ namespace ICompAccounting.ModelView
         Repository db;
         public ObservableCollection<vReferenceValue> AuthenticationModeList { set; get; }
         public string AuthenticationMode { set; get; } = "1";
-        public List<vEnterprise> Enterprises { set; get; }
-        public vEnterprise SelectedEnterprise { set; get; }
+        public List<Enterprise> Enterprises { set; get; }
+        public Enterprise SelectedEnterprise { set; get; }
         public AuthenticationMV()
         {
             db = new Repository(Properties.Resources.AccountingConnection);

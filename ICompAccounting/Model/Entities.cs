@@ -25,7 +25,7 @@ namespace ICompAccounting.Model
         public string PIB { set; get; }
     }
 
-    public class vEnterprise
+    public class Enterprise
     {
         [Key]
         public int? Id { set; get; }
@@ -33,6 +33,18 @@ namespace ICompAccounting.Model
         public string Account { set; get; }
         public string MFO { set; get; }
         public string EDRPOU { set; get; }
+        public int? Year { set; get; }
+        public int? Period { set; get; }
+        //public void Copy(Enterprise c)
+        //{
+        //    Id = c.Id;
+        //    Name = c.Name;
+        //    Account = c.Account;
+        //    MFO = c.MFO;
+        //    EDRPOU = c.EDRPOU;
+        //    Year = c.Year;
+        //    Period = c.Period;
+        //}
     }
 
     public class vReferenceValue
