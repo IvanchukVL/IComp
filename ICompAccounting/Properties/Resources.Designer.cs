@@ -61,7 +61,7 @@ namespace ICompAccounting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Source=IT_PROGR_04V\SQLEXPRESS;Initial Catalog=ICompAccounting;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300.
+        ///   Looks up a localized string similar to Data Source=IT_PROGR_04V\DRUID;Initial Catalog=ICompAccounting;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300.
         /// </summary>
         internal static string AccountingConnection {
             get {

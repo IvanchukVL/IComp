@@ -69,7 +69,8 @@
                 <StackPanel x:Name="tbPeriodFilter" IsEnabled="{Binding tbPeriodFilterEnabled}" Margin="0 0 0 0">
                     <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                         <Label Content="Рік" Width="30"/>
-                        <TextBox x:Name="tbYear" Width="50" MaxLength="4" Height="20" Padding="0 2 0 0" Text="{Binding Year, StringFormat='0'}" />
+                        <TextBox x:Name="tbYear" Width="50" MaxLength="4" Height="20" Padding="0 2 0 0" Text="{Binding Year, StringFormat={}{0:0}, ValidatesOnExceptions=True}">
+                        </TextBox>
                         <!--<wpfx:LongUpDown Name="tbYear" Width="50" Minimum="2000" Maximum="2090" Text="{Binding Year}"  />-->
                     </StackPanel>
                     <TreeView x:Name="Period" ItemsSource="{Binding Path=Nodes}" Margin="5 5 5 5" >

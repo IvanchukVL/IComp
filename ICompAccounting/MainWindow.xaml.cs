@@ -1,6 +1,7 @@
 ﻿using ICompAccounting.Model;
 using ICompAccounting.ModelView;
 using ICompAccounting.WpBank;
+using ICompAccounting.WpBank.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Linq;

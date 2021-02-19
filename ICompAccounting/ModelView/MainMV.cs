@@ -15,12 +15,9 @@ using System.Windows.Media;
 
 namespace ICompAccounting.ModelView
 {
-    public class MainMV : INotifyPropertyChanged
+    public class MainMV : INotifyPropertyChanged,IDataErrorInfo
     {
         Repository db;
-        //List<vmenu> _MenuList;
-        //vEnterprise _Enterprise;
-        ObservableCollection<MenuItem> _MainMenu;
 
         public MainMV()
         {
@@ -38,13 +35,21 @@ namespace ICompAccounting.ModelView
 
         }
 
-        public void setent()
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
         {
-            Enterprise.Year = Year;
-            Enterprise.Period = GetSelectedPeriod().Id;
-            db.Update<Enterprise>("Enterprises", Enterprise);
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        //public void setent()
+        //{
+        //    Enterprise.Year = Year;
+        //    Enterprise.Period = GetSelectedPeriod().Id;
+        //    db.Update<Enterprise>("Enterprises", Enterprise);
+        //}
+
+        #region Команди для MV
         private AppCommand openDayOperation;
         public AppCommand OpenDayOperation
         {
@@ -59,6 +64,20 @@ namespace ICompAccounting.ModelView
             }
         }
 
+        private AppCommand openListTypeOperations;
+        public AppCommand OpenListTypeOperations
+        {
+            get
+            {
+                return
+                  (openListTypeOperations = new AppCommand(obj =>
+                  {
+                      ActiveWindow = new ListTypeOperations(this);
+                      PageContent = ActiveWindow.Content;
+                  }));
+            }
+        }
+
         private AppCommand addCommand;
         public AppCommand AddCommand
         {
@@ -67,9 +86,7 @@ namespace ICompAccounting.ModelView
                 return
                   (addCommand = new AppCommand(obj =>
                   {
-                      //Page1 page = new Page1();
-                      PageContent = "Page1.xaml";
-                      //MessageBox.Show("Запуск команди!");
+                      //PageContent = "Page1.xaml";
                   }));
             }
         }
@@ -80,20 +97,35 @@ namespace ICompAccounting.ModelView
             get
             {
                 return
-                  (addCommand = new AppCommand(obj =>
+                  (editCommand = new AppCommand(obj =>
                   {
-                      //Page1 page = new Page1();
-                      PageContent = "Page2.xaml";
-                      //MessageBox.Show("Запуск команди!");
+                      //PageContent = "Page2.xaml";
                   }));
             }
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propertyName)
+        #region перелік полів класу
+
+        public string Error
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            get { return null; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "Year":
+                        if (this.Year < 2000 || this.Year > 3000)
+                            return "The age must be between 10 and 100";
+                        break;
+                }
+
+                return string.Empty;
+            }
         }
 
         bool _rbDateFilter = false;
@@ -173,6 +205,8 @@ namespace ICompAccounting.ModelView
         { 
             set
             {
+                if (value < 2000 || value > 3000)
+                    throw new ArgumentException("Значення мусть бути менше 3000 і більше 2000!");
                 _Year = value;
                 OnPropertyChanged("Year");
             }
@@ -212,6 +246,7 @@ namespace ICompAccounting.ModelView
         }
 
 
+        ObservableCollection<MenuItem> _MainMenu;
         public ObservableCollection<MenuItem> MainMenu
         {
             get { return _MainMenu; }
@@ -220,7 +255,9 @@ namespace ICompAccounting.ModelView
                 _MainMenu = value;
             }
         }
+        #endregion
 
+        #region методі класу
         public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -257,7 +294,7 @@ namespace ICompAccounting.ModelView
             int? ParentId = Parent == null ? 0 : Parent.Id;
             foreach (Period row in PeriodList.Where(x => x.ParentId == ParentId))
             {
-                PropertyInfo info = null;
+                //PropertyInfo info = null;
                 Node node;
                 node = new Node(row.Id, row.Code, row.Description);
                 if (ParentId == 0)
@@ -299,8 +336,14 @@ namespace ICompAccounting.ModelView
 
             return null;
         }
+        #endregion
+
     }
 
+
+    /// <summary>
+    /// Клас елементів меню
+    /// </summary>
     public class MenuItem
     {
         private ObservableCollection<MenuItem> _Items;
@@ -359,6 +402,9 @@ namespace ICompAccounting.ModelView
 
     }
 
+    /// <summary>
+    /// Клас елементів дерева
+    /// </summary>
     public class Node
     {
         public Node(int id, string name, string header)
