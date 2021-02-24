@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ICompAccounting.UC.GridNavigation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICompAccounting.UC"
+             mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="500">
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="3 3 3 3">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Height" Value="25" />
+                </Style>
+            </StackPanel.Resources>
+            <Button>
+                <Image Source="\Images\new_file.png" />
+            </Button>
+            <Button Command="{Binding SaveRows}">
+                <Image Source="\Images\save.png" />
+            </Button>
+            <Button Command="{Binding SkipBackward}">
+                <Image Source="\Images\skip_backward.png" />
+            </Button>
+            <Button Command="{Binding Backward}">
+                <Image Source="\Images\arrow_left.png" />
+            </Button>
+            <TextBox Width="70" Height="20" HorizontalAlignment="Center" Margin="5" IsReadOnly="True" Text="{ Binding CurrentStatus, Mode=OneWay}" />
+            <Button Command="{Binding Forward}">
+                <Image Source="\Images\arrow_right.png"/>
+            </Button>
+            <Button Command="{Binding SkipForward}">
+                <Image Source="\Images\skip_forward.png" />
+            </Button>
+            <Button>
+                <Image Source="\Images\trash_can_delete.png" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
+    

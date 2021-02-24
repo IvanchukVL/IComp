@@ -1,0 +1,53 @@
+﻿<Window x:Class="ICompAccounting.WpReferences.Organizations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mv="clr-namespace:ICompAccounting.WpReferences.ModelView"
+        xmlns:local="clr-namespace:ICompAccounting.WpReferences"
+        xmlns:uc="clr-namespace:ICompAccounting.UC"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        Title="Довідник організацій">
+    <Window.DataContext>
+        <mv:OrganizationMV/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Margin="5" >
+            <TextBox DockPanel.Dock="Top" Text="Перелік організацій" />
+            <uc:GridEdition DockPanel.Dock="Top" DataContext="{Binding GridEdition}"></uc:GridEdition>
+            <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Organizations}" AutoGenerateColumns="False" VerticalAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Код" Width="70" Binding="{Binding KOD}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ЄДРПОУ" Width="120" Binding="{Binding KOD_ZKPO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Назва організації  " Width="350" Binding="{Binding NAZVA_ORG}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Content, RelativeSource=
+                                         {RelativeSource Mode=TemplatedParent}}"
+                                       Margin="5"/>
+                                    <TextBox BorderBrush="Red" BorderThickness="3"
+                                     Width="50" Margin="5"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                        <!--<DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <TextBox x:Name="txtId" Width="210"/>
+                                    <Image Source="\Images\save.png" Height="17" Margin="3 0 0 0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>-->
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Інд. под-ий номер" Width="120" Binding="{Binding PodNom}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -12,6 +12,12 @@
     <Compile Update="Authentication.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UC\GridEdition.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UC\GridNavigation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WpBank\DayOperations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -21,9 +27,18 @@
     <Compile Update="WpBank\Window1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WpReferences\Organizations.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Authentication.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UC\GridEdition.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UC\GridNavigation.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpBank\DayOperations.xaml">
@@ -36,6 +51,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpBank\Window1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpReferences\Organizations.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

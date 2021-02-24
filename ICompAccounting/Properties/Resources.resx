@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountingConnection" xml:space="preserve">
-    <value>Data Source=IT_PROGR_04V\DRUID;Initial Catalog=ICompAccounting;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300</value>
+    <value>Data Source=IT_PROGR_04V\SQLEXPRESS;Initial Catalog=ICompAccounting;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300</value>
+  </data>
+  <data name="BD_ORGConnection" xml:space="preserve">
+    <value>Data Source=IT_PROGR_04V\SQLEXPRESS;Initial Catalog=BD_ORG;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>AccountingRobot</value>

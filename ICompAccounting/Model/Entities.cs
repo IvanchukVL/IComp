@@ -88,4 +88,34 @@ namespace ICompAccounting.Model
         public string Message { set; get; }
     }
 
+    public class BD_ORG
+    {
+        [Key]
+        public int KOD { set; get; }
+        public string KOD_ZKPO { set; get; }
+        public string NAZVA_ORG { set; get; }
+        public string PodNom { set; get; }
+    }
+
+    public class BD_RAH
+    {
+        [Key]
+        public int ID { set; get; }
+        public string KOD { set; get; }
+        public string KOD_ZKPO { set; get; }
+        public string KODB { set; get; }
+        public string Rah { set; get; }
+        public string KODB_NAZVA { set; get; }
+    }
+
+
+    //[ID]
+    //  ,[KOD]
+    //  ,[KOD_ZKPO]
+    //  ,[KODB]
+    //  ,[Rah]
+    //  ,[KODB_NAZVA]
+    //  ,[Misto]
+    //  ,[Tip]
+    //  ,[YTip]
 }

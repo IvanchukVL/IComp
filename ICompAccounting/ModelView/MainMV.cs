@@ -1,5 +1,6 @@
 ﻿using ICompAccounting.Model;
 using ICompAccounting.WpBank;
+using ICompAccounting.WpReferences;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,6 +64,21 @@ namespace ICompAccounting.ModelView
                   }));
             }
         }
+
+        private AppCommand openOrganizationList;
+        public AppCommand OpenOrganizationList
+        {
+            get
+            {
+                return
+                  (openOrganizationList = new AppCommand(obj =>
+                  {
+                      ActiveWindow = new Organizations(this);
+                      PageContent = ActiveWindow.Content;
+                  }));
+            }
+        }
+
 
         private AppCommand openListTypeOperations;
         public AppCommand OpenListTypeOperations
@@ -257,7 +273,7 @@ namespace ICompAccounting.ModelView
         }
         #endregion
 
-        #region методі класу
+        #region методи класу
         public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");

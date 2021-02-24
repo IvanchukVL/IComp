@@ -29,4 +29,32 @@ namespace ICompAccounting.Model
 
         }
     }
+
+    public class OrganizationsContext : DbContext
+    {
+        public DbSet<BD_ORG> Organizations { get; set; }
+        public DbSet<BD_RAH> Accounts { get; set; }
+
+        public OrganizationsContext() : base()
+        {
+            Database.EnsureCreated();
+        }
+        public OrganizationsContext(DbContextOptions<OrganizationsContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var coonectionString = "Data Source=IT_PROGR_04V\\DRUID;Initial Catalog=BD_ORG;Persist Security Info=True;User ID=AccountingRobot;Password=Asteriks77;Timeout=300";
+        //    //optionsBuilder.UseSqlServer(coonectionString, builder => builder.UseRowNumberForPaging());
+        //    //optionsBuilder.UseSqlServer(coonectionString);
+        //}
+    }
+
 }
