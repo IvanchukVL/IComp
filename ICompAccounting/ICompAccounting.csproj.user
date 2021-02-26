@@ -24,15 +24,24 @@
     <Compile Update="WpBank\ListTypeOperation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WpBank\Window1.xaml.cs">
+    <Compile Update="WpReferences\Accounts\AccountsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WpReferences\Organizations.xaml.cs">
+    <Compile Update="WpReferences\Accounts\EditAccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WpReferences\Partners\EditPartnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WpReferences\Partners\PartnersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Authentication.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\DataGridStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UC\GridEdition.xaml">
@@ -50,10 +59,16 @@
     <Page Update="WpBank\ListTypeOperation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\Window1.xaml">
+    <Page Update="WpReferences\Accounts\AccountsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpReferences\Organizations.xaml">
+    <Page Update="WpReferences\Accounts\EditAccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpReferences\Partners\EditPartnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpReferences\Partners\PartnersView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

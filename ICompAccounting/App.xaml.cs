@@ -18,28 +18,16 @@ namespace ICompAccounting
     public partial class App : Application
     {
 
-        //public IServiceProvider ServiceProvider { get; private set; }
 
-        //public IConfiguration Configuration { get; private set; }
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Непередачувана помилка: " + e.Exception.Message, "Помилка додатку", MessageBoxButton.OK, MessageBoxImage.Warning);
+            e.Handled = true;
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
-            //var builder = new ConfigurationBuilder()
-            // .SetBasePath(Directory.GetCurrentDirectory())
-            // .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            //Configuration = builder.Build();
-
-            //Console.WriteLine(Configuration.GetConnectionString("BloggingDatabase"));
-
-            //var serviceCollection = new ServiceCollection();
-            //ConfigureServices(serviceCollection);
-
-            //ServiceProvider = serviceCollection.BuildServiceProvider();
-
-            //var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            //mainWindow.Show();
         }
 
         //private void ConfigureServices(IServiceCollection services)

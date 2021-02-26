@@ -1,6 +1,7 @@
 ﻿using ICompAccounting.Model;
 using ICompAccounting.WpBank;
 using ICompAccounting.WpReferences;
+using ICompAccounting.WpReferences.Partners;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,7 +74,7 @@ namespace ICompAccounting.ModelView
                 return
                   (openOrganizationList = new AppCommand(obj =>
                   {
-                      ActiveWindow = new Organizations(this);
+                      ActiveWindow = new PartnersView();
                       PageContent = ActiveWindow.Content;
                   }));
             }
@@ -209,7 +210,6 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        Window _ActiveWindow;
         public Window ActiveWindow { set; get; }
         public ObservableCollection<Node> Nodes { get; set; }
         public List<vmenu> MenuList { set; get; }

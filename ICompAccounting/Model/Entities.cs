@@ -88,34 +88,34 @@ namespace ICompAccounting.Model
         public string Message { set; get; }
     }
 
-    public class BD_ORG
+    public class Partner
     {
         [Key]
-        public int KOD { set; get; }
+        public int? KOD { set; get; }
         public string KOD_ZKPO { set; get; }
         public string NAZVA_ORG { set; get; }
         public string PodNom { set; get; }
+        public string NomSvid { set; get; }
+        public string Adresa { set; get; }
+        public string N_TEL { set; get; }
+        public string Primitka { set; get; }
     }
 
-    public class BD_RAH
+    public class Account
     {
         [Key]
-        public int ID { set; get; }
-        public string KOD { set; get; }
-        public string KOD_ZKPO { set; get; }
-        public string KODB { set; get; }
-        public string Rah { set; get; }
-        public string KODB_NAZVA { set; get; }
+        public int? Id { set; get; }
+        public int? PartnerId { set; get; }
+        public string IBAN { set; get; }
+        public string MFO { set; get; }
+        public int? Status { set; get; }
     }
 
 
-    //[ID]
-    //  ,[KOD]
-    //  ,[KOD_ZKPO]
-    //  ,[KODB]
-    //  ,[Rah]
-    //  ,[KODB_NAZVA]
-    //  ,[Misto]
-    //  ,[Tip]
-    //  ,[YTip]
+    //SELECT TOP(1000) [Id]
+    //  ,[PartnerId]
+    //  ,[IBAN]
+    //  ,[MFO]
+    //  ,[Status]
+    //FROM[BD_ORG].[dbo].[Accounts]
 }

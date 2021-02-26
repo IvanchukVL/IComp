@@ -18,6 +18,7 @@
     <None Remove="Images\delete.png" />
     <None Remove="Images\disk.gif" />
     <None Remove="Images\disk2.png" />
+    <None Remove="Images\edit.png" />
     <None Remove="Images\expand.jpg" />
     <None Remove="Images\forward.png" />
     <None Remove="Images\new_file.png" />
@@ -31,8 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FastReport.OpenSource" Version="2021.1.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.11" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,6 +73,9 @@
     <Resource Include="Images\arrow_right.png" />
     <Resource Include="Images\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

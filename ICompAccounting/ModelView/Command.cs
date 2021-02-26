@@ -27,7 +27,7 @@ namespace ICompAccounting.ModelView
             return this.canExecute == null || this.canExecute(parameter);
         }
 
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
             this.execute(parameter);
         }

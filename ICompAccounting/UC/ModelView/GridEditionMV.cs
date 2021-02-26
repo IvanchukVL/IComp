@@ -33,7 +33,29 @@ namespace ICompAccounting.UC.ModelView
                 return
                   (new AppCommand(obj =>
                   {
-                      Owner.Save();
+                      //Owner.Save.Execute();
+                  }));
+            }
+        }
+        public AppCommand NewRow
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      Owner.NewRow.Execute();
+                  }));
+            }
+        }
+        public AppCommand EditRow
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      Owner.EditRow.Execute();
                   }));
             }
         }

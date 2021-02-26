@@ -15,8 +15,11 @@
                     <Setter Property="Height" Value="25" />
                 </Style>
             </StackPanel.Resources>
-            <Button>
+            <Button Command="{Binding NewRow}">
                 <Image Source="\Images\new_file.png" />
+            </Button>
+            <Button Command="{Binding EditRow}">
+                <Image Source="\Images\edit.png" />
             </Button>
             <Button Command="{Binding SaveRows}">
                 <Image Source="\Images\save.png" />

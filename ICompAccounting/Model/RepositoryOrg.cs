@@ -44,13 +44,54 @@ namespace ICompAccounting.Model
             }
         }
 
-
-        public List<BD_ORG> GetOrganizations(int? UserId)
+        /// <summary>
+        /// Універсальний клас для вставки даних
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Rows"></param>
+        public void Insert<T>(string Table, params T[] Rows) where T : class
         {
             using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
             {
-                return dc.Organizations.FromSqlRaw($"SELECT KOD,KOD_ZKPO,NAZVA_ORG,PodNom FROM dbo.BD_ORG").ToList();
+                Type type = dc.GetType();
+                DbSet<T> tb = (DbSet<T>)type.GetProperty(Table).GetValue(dc);
+                tb.AddRange(Rows);
+                dc.SaveChanges();
             }
         }
+
+        public void Delete<T>(string Table, params T[] Rows) where T : class
+        {
+            using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+            {
+                Type type = dc.GetType();
+                DbSet<T> tb = (DbSet<T>)type.GetProperty(Table).GetValue(dc);
+                tb.RemoveRange(Rows);
+                dc.SaveChanges();
+            }
+        }
+
+        public List<Partner> GetOrganizations(int? UserId)
+        {
+            using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+            {
+                return dc.BD_ORG.FromSqlRaw($"SELECT KOD,KOD_ZKPO,NAZVA_ORG,PodNom,NomSvid,Adresa,N_TEL,Primitka FROM dbo.BD_ORG").ToList();
+            }
+        }
+
+        public List<Account> GetAccounts(int? PartnerId)
+        {
+            using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+            {
+                return dc.BD_RAH.FromSqlRaw($"SELECT Id,PartnerId,IBAN,MFO,Status FROM dbo.Accounts WHERE PartnerId={PartnerId}").ToList();
+            }
+        }
+
     }
 }
+//SELECT TOP(1000) [Id]
+//  ,[PartnerId]
+//  ,[IBAN]
+//  ,[MFO]
+//  ,[Status]
+//FROM[BD_ORG].[dbo].[Accounts]
