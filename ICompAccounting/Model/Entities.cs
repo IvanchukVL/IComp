@@ -108,7 +108,7 @@ namespace ICompAccounting.Model
         public int? PartnerId { set; get; }
         public string IBAN { set; get; }
         public string MFO { set; get; }
-        public int? Status { set; get; }
+        public int? Status { set; get; } = 1;
     }
 
 

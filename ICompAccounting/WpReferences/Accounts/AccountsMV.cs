@@ -18,12 +18,15 @@ namespace ICompAccounting.WpReferences.Accounts
         public AccountsMV()
         {
             DbOrg = new RepositoryOrg(Properties.Resources.BD_ORGConnection);
-            GridEdition = new GridEditionMV();
+            GridEdition = new GridEditionMV() { Owner = this };
             //List<Account> Acc = DbOrg.GetAccounts(11);
             //Accounts = new ObservableCollection<Account>(Acc);
         }
 
         public string TitleAccountView { set; get; }
+        public string TitleEditView { set; get; }
+        public string ButTextEditView { set; get; }
+        public AppCommand CommandEditView { set; get; }
 
         PartnersMV owner;
        public PartnersMV Owner
@@ -52,15 +55,27 @@ namespace ICompAccounting.WpReferences.Accounts
         }
 
         public RepositoryOrg DbOrg { get; set; }
+
         Account selectedRow;
         public Account SelectedRow
         {
             set
             {
                 selectedRow = value;
-                OnPropertyChanged("Row");
+                OnPropertyChanged("SelectedRow");
             }
             get { return selectedRow; }
+        }
+
+        Account row;
+        public Account Row
+        {
+            set
+            {
+                row = value;
+                OnPropertyChanged("Row");
+            }
+            get { return row; }
         }
 
         public EditAccountView EditAccount { set; get; }
@@ -81,10 +96,10 @@ namespace ICompAccounting.WpReferences.Accounts
 
                       EditAccount = new EditAccountView();
                       EditAccount.DataContext = this;
-                      //TitleEditView = "Редагування запису";
-                      //ButTextEditView = "Редагувати";
-                      //CommandEditView = SaveExistsRow;
-                      //Row = SelectedRow;
+                      TitleEditView = "Редагування запису";
+                      ButTextEditView = "Редагувати";
+                      CommandEditView = SaveExistsRow;
+                      Row = SelectedRow;
                       EditAccount.ShowDialog();
                   }));
             }
@@ -96,13 +111,24 @@ namespace ICompAccounting.WpReferences.Accounts
                 return
                   (new AppCommand(obj =>
                   {
-                      //EditOrganization = new EditPartnerView();
-                      //EditOrganization.DataContext = this;
-                      //TitleEditView = "Створення нового запису";
-                      //ButTextEditView = "Створити";
-                      //Row = new Partner();
-                      //CommandEditView = SaveNewRow;
-                      //EditOrganization.ShowDialog();
+                      EditAccount = new EditAccountView();
+                      EditAccount.DataContext = this;
+                      TitleEditView = "Створення нового запису";
+                      ButTextEditView = "Створити";
+                      Row = new Account() { PartnerId = Owner.SelectedRow.KOD };
+                      CommandEditView = SaveNewRow;
+                      EditAccount.ShowDialog();
+                  }));
+            }
+        }
+
+        public AppCommand OpenWindow
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
                   }));
             }
         }
@@ -114,9 +140,9 @@ namespace ICompAccounting.WpReferences.Accounts
                 return
                   (new AppCommand(obj =>
                   {
-                      //DbOrg.Insert("BD_ORG", Row);
-                      //Partners.Add(Row);
-                      //EditOrganization.Close();
+                      DbOrg.Insert("Accounts", Row);
+                      Accounts.Add(Row);
+                      EditAccount.Close();
                   }));
             }
         }

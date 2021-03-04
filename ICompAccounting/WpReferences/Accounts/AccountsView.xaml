@@ -14,6 +14,20 @@
         <DockPanel Margin="5" >
             <uc:GridEdition DockPanel.Dock="Top" DataContext="{Binding GridEdition}"></uc:GridEdition>
             <DataGrid ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" IsReadOnly="True">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редагувати" Command="{Binding EditRow}">
+                            <MenuItem.Icon>
+                                <Image Source="\Images\edit.png"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Видалити" Command="{Binding DeleteRow}">
+                            <MenuItem.Icon>
+                                <Image Source="\Images\trash_can_delete.png"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Розрахунковий рахунок" Width="250" Binding="{Binding IBAN}"/>
                     <DataGridTextColumn Header="Назва банку" Width="*"/>

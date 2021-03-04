@@ -19,13 +19,26 @@
         </Grid.RowDefinitions>
         <DockPanel Margin="5" >
             <TextBox DockPanel.Dock="Top" Text="Перелік організацій" />
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <uc:GridEdition DockPanel.Dock="Top" DataContext="{Binding GridEdition}"></uc:GridEdition>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 3 3 3">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="25" />
+                        <Setter Property="Height" Value="25" />
+                    </Style>
+                </StackPanel.Resources>
+                <Button Command="{Binding OpenWindow}">
+                    <Image Source="\Images\window_list.png" />
+                </Button>
+            </StackPanel>
+            </StackPanel>
             <DataGrid DockPanel.Dock="Top"  ItemsSource="{Binding Partners}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" VerticalAlignment="Stretch">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Перелік рахунків" Command="{Binding OpenAccounts}">
+                        <MenuItem Header="Перелік рахунків" Command="{Binding OpenWindow}">
                             <MenuItem.Icon>
-                                <Image Source="\Images\edit.png"></Image>
+                                <Image Source="\Images\window_list.png"></Image>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Редагувати" Command="{Binding EditRow}">

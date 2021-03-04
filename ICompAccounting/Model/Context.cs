@@ -34,7 +34,7 @@ namespace ICompAccounting.Model
     {
         
         public DbSet<Partner> BD_ORG { get; set; }
-        public DbSet<Account> BD_RAH { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         public OrganizationsContext() : base()
         {

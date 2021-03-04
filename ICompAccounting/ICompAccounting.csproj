@@ -29,6 +29,7 @@
     <None Remove="Images\skip_backward.png" />
     <None Remove="Images\skip_forward.png" />
     <None Remove="Images\trash_can_delete.png" />
+    <None Remove="Images\window_list.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -114,6 +115,9 @@
     <Resource Include="Images\skip_forward.png" />
     <Resource Include="Images\trash_can_delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\window_list.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

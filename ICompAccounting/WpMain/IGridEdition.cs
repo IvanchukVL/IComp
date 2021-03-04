@@ -10,5 +10,6 @@ namespace ICompAccounting.WpMain
     {
         AppCommand NewRow { get; }
         AppCommand EditRow { get; }
+        AppCommand OpenWindow { get; }
     }
 }

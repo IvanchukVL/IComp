@@ -59,6 +59,18 @@ namespace ICompAccounting.UC.ModelView
                   }));
             }
         }
+
+        public AppCommand OpenWindow
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      Owner.OpenWindow.Execute();
+                  }));
+            }
+        }
         #endregion
 
 

@@ -83,7 +83,7 @@ namespace ICompAccounting.Model
         {
             using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
             {
-                return dc.BD_RAH.FromSqlRaw($"SELECT Id,PartnerId,IBAN,MFO,Status FROM dbo.Accounts WHERE PartnerId={PartnerId}").ToList();
+                return dc.Accounts.FromSqlRaw($"SELECT Id,PartnerId,IBAN,MFO,Status FROM dbo.Accounts WHERE PartnerId={PartnerId}").ToList();
             }
         }
 

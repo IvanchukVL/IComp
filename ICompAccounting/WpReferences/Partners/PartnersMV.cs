@@ -67,13 +67,19 @@ namespace ICompAccounting.WpReferences.ModelView
 
         #region Команди
 
-        public AppCommand OpenAccounts
+        public AppCommand OpenWindow
         {
             get
             {
                 return
                   (new AppCommand(obj =>
                   {
+                      if (SelectedRow == null)
+                      {
+                          MessageBox.Show("Не виділено жодного запису!");
+                          return;
+                      }
+
                       AccountsView = new AccountsView();
                       (AccountsView.DataContext as AccountsMV).Owner = this;
                       AccountsView.ShowDialog();
