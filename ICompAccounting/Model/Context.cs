@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ICompAccounting.Model.Entities;
+using ICompAccounting.Model.Entities.oper;
+using ICompAccounting.Model.Entities.org;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +15,11 @@ namespace ICompAccounting.Model
         public DbSet<vReferenceValue> vReferenceValues { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
         public DbSet<vUser> vUsers { get; set; }
+        public DbSet<Partner> Partners { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<AccountPurpose> AccountPurposes { get; set; }
+        public DbSet<Operation> OperationList { get; set; }
+
 
         public AccountingContext() : base()
         {
@@ -35,6 +43,7 @@ namespace ICompAccounting.Model
         
         public DbSet<Partner> BD_ORG { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Operation> OperationList { get; set; }
 
         public OrganizationsContext() : base()
         {

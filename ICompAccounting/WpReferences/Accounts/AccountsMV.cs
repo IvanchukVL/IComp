@@ -1,4 +1,6 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.Model.Entities.oper;
+using ICompAccounting.Model.Entities.org;
 using ICompAccounting.ModelView;
 using ICompAccounting.UC.ModelView;
 using ICompAccounting.WpMain;
@@ -17,8 +19,10 @@ namespace ICompAccounting.WpReferences.Accounts
 
         public AccountsMV()
         {
-            DbOrg = new RepositoryOrg(Properties.Resources.BD_ORGConnection);
-            GridEdition = new GridEditionMV() { Owner = this };
+            db = new Repository(Properties.Resources.AccountingConnection);
+            //GridEdition = new GridEditionMV() { Owner = this };
+            var list = db.GetOperationList();
+            OperationList = new ObservableCollection<Operation>(list);
             //List<Account> Acc = DbOrg.GetAccounts(11);
             //Accounts = new ObservableCollection<Account>(Acc);
         }
@@ -35,14 +39,14 @@ namespace ICompAccounting.WpReferences.Accounts
             set
             {
                 owner = value;
-                List<Account> Acc = DbOrg.GetAccounts(owner.SelectedRow.KOD);
+                List<Account> Acc = db.GetAccounts(owner.SelectedRow.KOD);
                 TitleAccountView = $"Перелік розрахункових рахунків для {owner.SelectedRow.NAZVA_ORG}";
                 Accounts = new ObservableCollection<Account>(Acc);
                 OnPropertyChanged("Accounts");
             }
         }
 
-        public GridEditionMV GridEdition { get; set; }
+        //public GridEditionMV GridEdition { get; set; }
         ObservableCollection<Account> accounts;
         public ObservableCollection<Account> Accounts
         {
@@ -54,7 +58,7 @@ namespace ICompAccounting.WpReferences.Accounts
             }
         }
 
-        public RepositoryOrg DbOrg { get; set; }
+        public Repository db { get; set; }
 
         Account selectedRow;
         public Account SelectedRow
@@ -79,6 +83,11 @@ namespace ICompAccounting.WpReferences.Accounts
         }
 
         public EditAccountView EditAccount { set; get; }
+        public ObservableCollection<AccountPurpose> AccountPurposes { set; get; }
+        public Operation CurOperation { get { return OperationList[0]; } }
+
+
+        public ObservableCollection<Operation> OperationList { set; get; }
 
 
         public AppCommand EditRow
@@ -100,6 +109,7 @@ namespace ICompAccounting.WpReferences.Accounts
                       ButTextEditView = "Редагувати";
                       CommandEditView = SaveExistsRow;
                       Row = SelectedRow;
+                      AccountPurposes = new ObservableCollection<AccountPurpose>(db.GetAccountPurposes(SelectedRow.Id));
                       EditAccount.ShowDialog();
                   }));
             }
@@ -140,7 +150,7 @@ namespace ICompAccounting.WpReferences.Accounts
                 return
                   (new AppCommand(obj =>
                   {
-                      DbOrg.Insert("Accounts", Row);
+                      db.Insert("Accounts", Row);
                       Accounts.Add(Row);
                       EditAccount.Close();
                   }));

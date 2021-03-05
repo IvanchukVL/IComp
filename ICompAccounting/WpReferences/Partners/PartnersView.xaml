@@ -20,7 +20,7 @@
         <DockPanel Margin="5" >
             <TextBox DockPanel.Dock="Top" Text="Перелік організацій" />
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <uc:GridEdition DockPanel.Dock="Top" DataContext="{Binding GridEdition}"></uc:GridEdition>
+            <uc:GridEdition DockPanel.Dock="Top"></uc:GridEdition>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 3 3 3">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
@@ -33,7 +33,7 @@
                 </Button>
             </StackPanel>
             </StackPanel>
-            <DataGrid DockPanel.Dock="Top"  ItemsSource="{Binding Partners}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" VerticalAlignment="Stretch">
+            <DataGrid DockPanel.Dock="Top"  ItemsSource="{Binding Partners}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" VerticalAlignment="Stretch"  IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Перелік рахунків" Command="{Binding OpenWindow}">

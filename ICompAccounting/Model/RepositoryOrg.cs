@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using ICompAccounting.Model.Entities.org;
 
 namespace ICompAccounting.Model
 {

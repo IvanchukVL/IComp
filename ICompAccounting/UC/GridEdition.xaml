@@ -24,7 +24,7 @@
             <Button Command="{Binding SaveRows}">
                 <Image Source="\Images\save.png" />
             </Button>
-            <Button>
+            <Button Command="{Binding DeleteRow}">
                 <Image Source="\Images\trash_can_delete.png" />
             </Button>
         </StackPanel>

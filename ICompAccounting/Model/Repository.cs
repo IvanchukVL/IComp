@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using ICompAccounting.Model.Entities;
+using ICompAccounting.Model.Entities.org;
+using ICompAccounting.Model.Entities.oper;
 
 namespace ICompAccounting.Model
 {
@@ -33,6 +36,33 @@ namespace ICompAccounting.Model
                 Type type = dc.GetType();
                 DbSet<T> tb = (DbSet<T>) type.GetProperty(Table).GetValue(dc);
                 tb.UpdateRange(Rows);
+                dc.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Універсальний клас для вставки даних
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Rows"></param>
+        public void Insert<T>(string Table, params T[] Rows) where T : class
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                Type type = dc.GetType();
+                DbSet<T> tb = (DbSet<T>)type.GetProperty(Table).GetValue(dc);
+                tb.AddRange(Rows);
+                dc.SaveChanges();
+            }
+        }
+
+        public void Delete<T>(string Table, params T[] Rows) where T : class
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                Type type = dc.GetType();
+                DbSet<T> tb = (DbSet<T>)type.GetProperty(Table).GetValue(dc);
+                tb.RemoveRange(Rows);
                 dc.SaveChanges();
             }
         }
@@ -83,6 +113,44 @@ namespace ICompAccounting.Model
                     return list[0];
                 else
                     return null;
+            }
+        }
+
+        public List<Partner> GetOrganizations(int? UserId)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.Partners.FromSqlRaw($"SELECT KOD,KOD_ZKPO,NAZVA_ORG,PodNom,NomSvid,Adresa,N_TEL,Primitka FROM org.Partners").ToList();
+            }
+        }
+
+        public List<Account> GetAccounts(int? PartnerId)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.Accounts.FromSqlRaw($"SELECT Id,PartnerId,IBAN,MFO,Status FROM org.Accounts WHERE PartnerId={PartnerId}").ToList();
+            }
+        }
+
+        public List<AccountPurpose> GetAccountPurposes(int? AccountId)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                var list = dc.AccountPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Purpose,Status FROM org.AccountPurposes WHERE AccountId={AccountId}").ToList();
+                //foreach (var row in list)
+                //{
+                //    row.Operation = GetOperationList().First();
+                //}
+                return list;
+
+            }
+        }
+
+        public List<Operation> GetOperationList()
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.OperationList.FromSqlRaw($"SELECT Id,Code,Description,Status FROM oper.OperationList WHERE Status=1").ToList();
             }
         }
 

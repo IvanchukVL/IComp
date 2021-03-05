@@ -1,4 +1,5 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.Model.Entities.org;
 using ICompAccounting.ModelView;
 using ICompAccounting.UC.ModelView;
 using ICompAccounting.WpMain;
@@ -18,10 +19,10 @@ namespace ICompAccounting.WpReferences.ModelView
     {
         public PartnersMV()
         {
-            DbOrg = new RepositoryOrg(Properties.Resources.BD_ORGConnection);
-            List<Partner> Orgs = DbOrg.GetOrganizations(11);
+            db = new Repository(Properties.Resources.AccountingConnection);
+            List<Partner> Orgs = db.GetOrganizations(11);
             Partners = new ObservableCollection<Partner>(Orgs);
-            GridEdition = new GridEditionMV() { Owner = this };
+            //GridEdition = new GridEditionMV() { Owner = this };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,7 +33,6 @@ namespace ICompAccounting.WpReferences.ModelView
         }
 
         #region властивості класу
-
         public Partner SelectedRow { get; set; }
 
         ObservableCollection<Partner> partners;
@@ -45,8 +45,8 @@ namespace ICompAccounting.WpReferences.ModelView
                 OnPropertyChanged("Organizations");
             }
         }
-        public RepositoryOrg DbOrg { get; set; }
-        public GridEditionMV GridEdition { get; set; }
+        public Repository db { get; set; }
+        //public GridEditionMV GridEdition { get; set; }
         public EditPartnerView EditOrganization { get; set; }
         public AccountsView AccountsView { get; set; }
 
@@ -135,7 +135,7 @@ namespace ICompAccounting.WpReferences.ModelView
                 return
                   (new AppCommand(obj =>
                   {
-                      DbOrg.Insert("BD_ORG", Row);
+                      db.Insert("Partners", Row);
                       Partners.Add(Row);
                       EditOrganization.Close();
                   }));
@@ -149,7 +149,7 @@ namespace ICompAccounting.WpReferences.ModelView
                 return
                   (new AppCommand(obj =>
                   {
-                      DbOrg.Update("BD_ORG", Row);
+                      db.Update("Partners", Row);
                       EditOrganization.Close();
                   }));
             }
@@ -176,7 +176,7 @@ namespace ICompAccounting.WpReferences.ModelView
                   {
                       if (MessageBox.Show("Ви дійсно хочете видалити запис?", "Видалення запису", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                       Row = SelectedRow;
-                      DbOrg.Delete("BD_ORG", Row);
+                      db.Delete("Partners", Row);
                       Partners.Remove(Row);
                   }));
             }

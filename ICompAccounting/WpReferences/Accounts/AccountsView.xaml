@@ -12,8 +12,8 @@
     </Window.DataContext>
     <Grid>
         <DockPanel Margin="5" >
-            <uc:GridEdition DockPanel.Dock="Top" DataContext="{Binding GridEdition}"></uc:GridEdition>
-            <DataGrid ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" IsReadOnly="True">
+            <uc:GridEdition DockPanel.Dock="Top"></uc:GridEdition>
+            <DataGrid ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedRow, Mode=TwoWay}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Редагувати" Command="{Binding EditRow}">

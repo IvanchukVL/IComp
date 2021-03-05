@@ -5,34 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ICompAccounting.WpReferences.Accounts"
         mc:Ignorable="d"
-        Title="{Binding TitleAccountView}" Height="320" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="{Binding TitleAccountView}" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <CollectionViewSource x:Key="OperationList" Source="{Binding OperationList}"/>
+    </Window.Resources>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="90*"></ColumnDefinition>
                 <ColumnDefinition Width="200*"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="180"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <Label Content="Рахунок IBAN" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
             <TextBox Text="{Binding Row.IBAN,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="29" Margin="5,5,0,5" Width="320" HorizontalAlignment="Left" />
+            <DataGrid 
+                ItemsSource="{Binding AccountPurposes}" 
+                Style="{StaticResource MainDataGridStyle}"
+                CellStyle="{StaticResource MainCellStyle}" 
+                CanUserAddRows="True"  
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridComboBoxColumn 
+                        Header="Тип операції" 
+                        Width="150" 
+                        EditingElementStyle="{StaticResource EditGridCombo}" 
+                        CellStyle="{StaticResource CellGridCombo}" 
+                        ItemsSource="{Binding Source={StaticResource OperationList}}" 
+                        SelectedValueBinding="{Binding OperationId}" 
+                        SelectedValuePath="Id" 
+                        DisplayMemberPath="Description">
+                    </DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="Призначення платежу" Binding="{Binding Purpose}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
 
             <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Width="120" Height="25" Content="{Binding ButTextEditView}" Command="{Binding CommandEditView }" Margin="0 0 10 0"/>
                 <Button Width="120" Height="25" Content="Відміна" Command="{Binding CancelRow }"/>
             </StackPanel>
-
         </Grid>
 
     </Grid>

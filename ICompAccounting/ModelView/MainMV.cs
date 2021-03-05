@@ -1,4 +1,5 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.Model.Entities;
 using ICompAccounting.WpBank;
 using ICompAccounting.WpReferences;
 using ICompAccounting.WpReferences.Partners;

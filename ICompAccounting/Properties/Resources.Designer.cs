@@ -88,7 +88,7 @@ namespace ICompAccounting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asteriks77.
+        ///   Looks up a localized string similar to Asteriks1977.
         /// </summary>
         internal static string Password {
             get {

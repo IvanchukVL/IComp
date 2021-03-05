@@ -1,4 +1,5 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.Model.Entities;
 using ICompAccounting.ModelView;
 using System;
 using System.Collections.Generic;
