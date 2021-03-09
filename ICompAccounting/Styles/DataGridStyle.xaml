@@ -1,20 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:ICompAccounting.Styles">
+                    >
     <Style x:Key="MainDataGridStyle"  TargetType="DataGrid">
         <Setter Property="RowBackground" Value="#FFFFFF" />
         <Setter Property="AlternatingRowBackground" Value="#EBEBED" />
         <Setter Property="RowHeight" Value="18" />
         <Setter Property="GridLinesVisibility" Value="All"/>
-        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="RowHeaderWidth" Value="20"/>
+        <!--<Setter Property="HeadersVisibility" Value="Column" />-->
         <Setter Property="HorizontalGridLinesBrush" Value="#A0A0A0" />
         <Setter Property="VerticalGridLinesBrush"  Value="#A0A0A0" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="SelectionMode" Value="Single" />
-        <Setter Property="CanUserReorderColumns" Value="False" />
         <Setter Property="CanUserResizeColumns" Value="False" />
-        <Setter Property="CanUserSortColumns" Value="True" />
         <Setter Property="AutoGenerateColumns" Value="True" />
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
         <Setter Property="RowHeight" Value="21"/>
@@ -33,6 +32,13 @@
     </Style>
     <Style x:Key="CellGridCombo" TargetType="DataGridCell">
         <Setter Property="Margin" Value="0 -1 0 0"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="Gray" />
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="EditGridCombo" TargetType="{x:Type ComboBox}">

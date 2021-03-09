@@ -53,10 +53,10 @@
     <Page Update="WpBank\DayOperations.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="WpBank\ListTypeOperation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\ListTypeOperation.xaml">
+    <Page Update="WpMain\MainWindow\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpReferences\Accounts\AccountsView.xaml">

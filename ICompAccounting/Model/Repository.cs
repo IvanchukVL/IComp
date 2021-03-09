@@ -13,9 +13,10 @@ using ICompAccounting.Model.Entities.oper;
 
 namespace ICompAccounting.Model
 {
-    public class Repository
+    public class Repository:IDisposable
     {
         public DbContextOptionsBuilder<AccountingContext> OptionsBuilder { set; get; }
+        public AccountingContext dc;
 
         public Repository(string ConnectionString)
         {
@@ -23,6 +24,26 @@ namespace ICompAccounting.Model
             OptionsBuilder.UseSqlServer(ConnectionString);
         }
 
+        public void Open()
+        {
+            dc = new AccountingContext(OptionsBuilder.Options);
+        }
+
+        public void Close()
+        {
+            dc.Dispose();
+        }
+        public void Dispose()
+        {
+            if (dc!=null)
+                dc.Dispose();
+        }
+
+        ~Repository()
+        {
+            if (dc != null)
+                dc.Dispose();
+        }
 
         /// <summary>
         /// Універсальний клас для оновлення даних
@@ -132,18 +153,12 @@ namespace ICompAccounting.Model
             }
         }
 
-        public List<AccountPurpose> GetAccountPurposes(int? AccountId)
+        public DbSet<AccountPurpose> GetAccountPurposes(int? AccountId)
         {
-            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
-            {
-                var list = dc.AccountPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Purpose,Status FROM org.AccountPurposes WHERE AccountId={AccountId}").ToList();
-                //foreach (var row in list)
-                //{
-                //    row.Operation = GetOperationList().First();
-                //}
-                return list;
+            dc.AccountPurposes.Where(x=>x.AccountId==AccountId).Load();
+            return dc.AccountPurposes;
 
-            }
+            //var list = dc.AccountPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Purpose,Status FROM org.AccountPurposes WHERE AccountId={AccountId}").Load();
         }
 
         public List<Operation> GetOperationList()
@@ -153,7 +168,5 @@ namespace ICompAccounting.Model
                 return dc.OperationList.FromSqlRaw($"SELECT Id,Code,Description,Status FROM oper.OperationList WHERE Status=1").ToList();
             }
         }
-
-
     }
 }

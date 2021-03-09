@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ICompAccounting.WpMain
 {
-    public interface IGridEdition
+    public interface IGridEdition111
     {
         AppCommand NewRow { get; }
         AppCommand EditRow { get; }

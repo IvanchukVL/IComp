@@ -87,7 +87,9 @@
                 </StackPanel>
             </Expander>
         </StackPanel>
+        
         <Frame x:Name="MainFrame" NavigationUIVisibility="Visible" Content="{Binding PageContent}" Grid.Column="1"  Grid.Row="2" >
         </Frame>
+
     </Grid>
 </Window>

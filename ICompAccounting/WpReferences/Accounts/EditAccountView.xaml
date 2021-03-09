@@ -27,7 +27,7 @@
             <Label Content="Рахунок IBAN" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
             <TextBox Text="{Binding Row.IBAN,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="29" Margin="5,5,0,5" Width="320" HorizontalAlignment="Left" />
             <DataGrid 
-                ItemsSource="{Binding AccountPurposes}" 
+                ItemsSource="{Binding AccountPurposes,Mode=TwoWay}" 
                 Style="{StaticResource MainDataGridStyle}"
                 CellStyle="{StaticResource MainCellStyle}" 
                 CanUserAddRows="True"  
@@ -46,6 +46,7 @@
                         DisplayMemberPath="Description">
                     </DataGridComboBoxColumn>
                     <DataGridTextColumn Header="Призначення платежу" Binding="{Binding Purpose}" Width="*"/>
+
                 </DataGrid.Columns>
             </DataGrid>
 

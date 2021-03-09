@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -45,13 +46,6 @@ namespace ICompAccounting.ModelView
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //public void setent()
-        //{
-        //    Enterprise.Year = Year;
-        //    Enterprise.Period = GetSelectedPeriod().Id;
-        //    db.Update<Enterprise>("Enterprises", Enterprise);
-        //}
-
         #region Команди для MV
         private AppCommand openDayOperation;
         public AppCommand OpenDayOperation
@@ -61,8 +55,8 @@ namespace ICompAccounting.ModelView
                 return
                   (openDayOperation = new AppCommand(obj =>
                   {
-                      ActiveWindow = new DayOperations(this);
-                      PageContent = ActiveWindow.Content;
+                      //ActiveWindow = new DayOperations(this);
+                      //PageContent = ActiveWindow.Content;
                   }));
             }
         }
@@ -75,8 +69,16 @@ namespace ICompAccounting.ModelView
                 return
                   (openOrganizationList = new AppCommand(obj =>
                   {
-                      ActiveWindow = new PartnersView();
-                      PageContent = ActiveWindow.Content;
+                      //if (ActiveWindow != null)
+                      //{
+                      //    ActiveWindow.Close();
+                      //    ActiveWindow = null;
+                      //}
+                      //ActiveWindow = new PartnersView();
+                      //PageContent = ActiveWindow.Content;
+                      //Page page = new Page("/WpReferences/PartnersView.xaml");
+                      ActivePage = new PartnersView();
+                      PageContent = ActivePage;
                   }));
             }
         }
@@ -90,8 +92,8 @@ namespace ICompAccounting.ModelView
                 return
                   (openListTypeOperations = new AppCommand(obj =>
                   {
-                      ActiveWindow = new ListTypeOperations(this);
-                      PageContent = ActiveWindow.Content;
+                      //ActiveWindow = new ListTypeOperations(this);
+                      //PageContent = ActiveWindow.Content;
                   }));
             }
         }
@@ -211,7 +213,21 @@ namespace ICompAccounting.ModelView
             }
         }
 
-        public Window ActiveWindow { set; get; }
+        Page _ActivePage;
+        public Page ActivePage 
+        { 
+            set
+            {
+                _ActivePage = null;
+                _ActivePage = value;
+            } 
+
+            get
+            {
+                return _ActivePage;
+            }
+                 
+        }
         public ObservableCollection<Node> Nodes { get; set; }
         public List<vmenu> MenuList { set; get; }
         public List<Period> PeriodList { set; get; }
@@ -247,6 +263,7 @@ namespace ICompAccounting.ModelView
                 return _PageContent;
             }
         }
+        public string Page { set; get; }
 
         public Enterprise Enterprise
         {

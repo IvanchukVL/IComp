@@ -2,6 +2,7 @@
 using ICompAccounting.ModelView;
 using ICompAccounting.WpBank;
 using ICompAccounting.WpBank.ModelView;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,15 @@ namespace ICompAccounting
 
         private void button_click(object sender, RoutedEventArgs e)
         {
-
-            (((DataContext as MainMV).ActiveWindow as DayOperations).DataContext as DayOperationsMV).Title="Інші операції";
+            var list = MainFrame.BackStack;
+            foreach (JournalEntry fruit in list)
+            {
+                fruit.Name = "Тест";
+                //var ddddd = fruit.Name;
+                
+            }
+            var d = list.GetEnumerator();
+            //(((DataContext as MainMV).ActiveWindow as DayOperations).DataContext as DayOperationsMV).Title="Інші операції";
         }
 
     }

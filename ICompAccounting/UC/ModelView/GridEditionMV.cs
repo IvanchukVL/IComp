@@ -75,7 +75,7 @@ namespace ICompAccounting.UC.ModelView
 
 
         #region Властивості 
-        public IGridEdition Owner { set; get; }
+        public IGridEdition111 Owner { set; get; }
 
         #endregion
     }

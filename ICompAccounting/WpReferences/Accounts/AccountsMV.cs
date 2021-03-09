@@ -5,16 +5,18 @@ using ICompAccounting.ModelView;
 using ICompAccounting.UC.ModelView;
 using ICompAccounting.WpMain;
 using ICompAccounting.WpReferences.ModelView;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 
 namespace ICompAccounting.WpReferences.Accounts
 {
-    public class AccountsMV : INotifyPropertyChanged,IGridEdition
+    public class AccountsMV : INotifyPropertyChanged,IGridEdition111
     {
 
         public AccountsMV()
@@ -83,7 +85,16 @@ namespace ICompAccounting.WpReferences.Accounts
         }
 
         public EditAccountView EditAccount { set; get; }
-        public ObservableCollection<AccountPurpose> AccountPurposes { set; get; }
+        public ObservableCollection<AccountPurpose> accountPurposes;
+        public ObservableCollection<AccountPurpose> AccountPurposes 
+        {
+            set 
+            { 
+                accountPurposes = value; 
+                OnPropertyChanged("AccountPurposes"); 
+            }
+            get { return accountPurposes; }
+        }
         public Operation CurOperation { get { return OperationList[0]; } }
 
 
@@ -109,7 +120,9 @@ namespace ICompAccounting.WpReferences.Accounts
                       ButTextEditView = "Редагувати";
                       CommandEditView = SaveExistsRow;
                       Row = SelectedRow;
-                      AccountPurposes = new ObservableCollection<AccountPurpose>(db.GetAccountPurposes(SelectedRow.Id));
+
+                      db.Open();
+                      AccountPurposes = db.GetAccountPurposes(SelectedRow.Id).Local.ToObservableCollection();
                       EditAccount.ShowDialog();
                   }));
             }
@@ -164,8 +177,9 @@ namespace ICompAccounting.WpReferences.Accounts
                 return
                   (new AppCommand(obj =>
                   {
-                      //DbOrg.Update("BD_ORG", Row);
-                      //EditOrganization.Close();
+                      AccountPurposes.Where(x => x.AccountId == null).Select(x =>{ x.AccountId = SelectedRow.Id; return x; }).ToList();
+                      db.dc.SaveChanges();
+                      EditAccount.Close();
                   }));
             }
         }

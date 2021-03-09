@@ -121,4 +121,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="WpMain\MainWindow\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

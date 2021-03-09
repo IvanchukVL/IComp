@@ -12,9 +12,10 @@ namespace ICompAccounting.Model.Entities.org
     {
         [Key]
         public int? Id { set; get; }
+        public int? AccountId { set; get; }
         public int? OperationId { set; get; }
         public string Purpose { set; get; }
-        public int? Status { set; get; }
+        public int? Status { set; get; } = 1;
 
     }
 }

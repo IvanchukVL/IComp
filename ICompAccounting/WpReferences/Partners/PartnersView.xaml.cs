@@ -16,7 +16,7 @@ namespace ICompAccounting.WpReferences.Partners
     /// <summary>
     /// Interaction logic for Organizations.xaml
     /// </summary>
-    public partial class PartnersView : Window
+    public partial class PartnersView : Page
     {
         public PartnersView()
         {

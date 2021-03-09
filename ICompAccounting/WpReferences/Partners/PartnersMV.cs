@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace ICompAccounting.WpReferences.ModelView
 {
-    public class PartnersMV : INotifyPropertyChanged, IGridEdition
+    public class PartnersMV : INotifyPropertyChanged, IGridEdition111
     {
         public PartnersMV()
         {
@@ -60,6 +60,7 @@ namespace ICompAccounting.WpReferences.ModelView
             }
             get { return row; }
         }
+        public string Title { set; get; } = "Партнери";
         public string TitleEditView { set; get; }
         public string ButTextEditView { set; get; }
         public AppCommand CommandEditView { set; get; }
