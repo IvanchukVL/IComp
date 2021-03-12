@@ -1,4 +1,5 @@
-﻿using ICompAccounting.ModelView;
+﻿using ICompAccounting.Common;
+using ICompAccounting.ModelView;
 using ICompAccounting.WpMain;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ namespace ICompAccounting.UC.ModelView
 
 
         #region Властивості 
-        public IGridEdition111 Owner { set; get; }
+        public IGridEdition Owner { set; get; }
 
         #endregion
     }

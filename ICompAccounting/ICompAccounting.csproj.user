@@ -2,6 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_LastSelectedProfileId>C:\IComp\ICompAccounting\ICompAccounting\Properties\PublishProfiles\Publish.pubxml</_LastSelectedProfileId>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
@@ -9,19 +10,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Authentication.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UC\GridEdition.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UC\GridNavigation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WpBank\DayOperations.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="WpBank\ListTypeOperation.xaml.cs">
+    <Compile Update="WpBank\Operations\EditOperationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WpReferences\Accounts\AccountsView.xaml.cs">
@@ -38,9 +33,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Authentication.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Styles\DataGridStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -50,10 +42,13 @@
     <Page Update="UC\GridNavigation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\DayOperations.xaml">
+    <Page Update="WpBank\Operations\EditOperationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\ListTypeOperation.xaml">
+    <Page Update="WpBank\Operations\OperationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpMain\Authentication\Authentication.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpMain\MainWindow\MainWindow.xaml">

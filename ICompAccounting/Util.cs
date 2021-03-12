@@ -7,6 +7,8 @@ namespace ICompAccounting
 {
     public static class Extensions
     {
+        private static DateTime cZeroDate = new DateTime(1900, 01, 01);
+
         public static void Copy<T>(this T dist, T source)
         {
             foreach (PropertyInfo SourceProperty in source.GetType().GetProperties( BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
@@ -17,6 +19,18 @@ namespace ICompAccounting
                 DistField.SetValue(dist, SourceProperty.GetValue(source));
             }
         }
+        public static int? ToInt(this DateTime? Dat)
+        {
+            if (Dat == null)
+                return null;
+
+            return (int)(((DateTime)Dat).Date - cZeroDate).TotalDays;
+        }
 
     }
+
+    public class Util
+    {
+    }
+
 }

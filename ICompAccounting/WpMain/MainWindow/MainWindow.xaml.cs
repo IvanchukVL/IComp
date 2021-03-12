@@ -1,7 +1,7 @@
 ﻿using ICompAccounting.Model;
+using ICompAccounting.Model.Entities;
 using ICompAccounting.ModelView;
 using ICompAccounting.WpBank;
-using ICompAccounting.WpBank.ModelView;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -41,14 +41,23 @@ namespace ICompAccounting
 
         private void button_click(object sender, RoutedEventArgs e)
         {
-            var list = MainFrame.BackStack;
-            foreach (JournalEntry fruit in list)
+            var mv = (DataContext as MainMV);
+            if (mv.LocalValues == null)
             {
-                fruit.Name = "Тест";
-                //var ddddd = fruit.Name;
-                
+                mv.db.Insert("UsersLocalParams", new UsersLocalParam() { UserId = ((vUser)Application.Current.Properties["User"]).Id, EnterpriseId = mv.Enterprise.Id, Year = mv.Year, Period = mv.GetSelectedPeriod().Id });
             }
-            var d = list.GetEnumerator();
+            else
+            {
+                mv.LocalValues.Year = mv.Year;
+                mv.LocalValues.Period = mv.GetSelectedPeriod().Id;
+                mv.db.Update("UsersLocalParams", mv.LocalValues);
+            }
+            //var list = MainFrame.BackStack;
+            //foreach (JournalEntry fruit in list)
+            //{
+            //    fruit.Name = "Тест";
+            //}
+            //var d = list.GetEnumerator();
             //(((DataContext as MainMV).ActiveWindow as DayOperations).DataContext as DayOperationsMV).Title="Інші операції";
         }
 

@@ -1,4 +1,6 @@
-﻿using ICompAccounting.Model;
+﻿using ICompAccounting.Common;
+using ICompAccounting.Model;
+using ICompAccounting.Model.Entities;
 using ICompAccounting.Model.Entities.org;
 using ICompAccounting.ModelView;
 using ICompAccounting.UC.ModelView;
@@ -15,12 +17,12 @@ using System.Windows;
 
 namespace ICompAccounting.WpReferences.ModelView
 {
-    public class PartnersMV : INotifyPropertyChanged, IGridEdition111
+    public class PartnersMV : INotifyPropertyChanged, IGridEdition
     {
         public PartnersMV()
         {
-            db = new Repository(Properties.Resources.AccountingConnection);
-            List<Partner> Orgs = db.GetOrganizations(11);
+            db = new Repository(AppSettings.AccountingConnection);
+            List<Partner> Orgs = db.GetPartners(11);
             Partners = new ObservableCollection<Partner>(Orgs);
             //GridEdition = new GridEditionMV() { Owner = this };
         }

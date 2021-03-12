@@ -1,4 +1,5 @@
-﻿using ICompAccounting.ModelView;
+﻿using ICompAccounting.Common;
+using ICompAccounting.ModelView;
 using ICompAccounting.WpMain;
 using System;
 using System.Collections.Generic;

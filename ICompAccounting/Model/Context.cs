@@ -19,6 +19,8 @@ namespace ICompAccounting.Model
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountPurpose> AccountPurposes { get; set; }
         public DbSet<Operation> OperationList { get; set; }
+        public DbSet<UsersLocalParam> UsersLocalParams { get; set; }
+        public DbSet<OperationOut> OperationsOut { get; set; }
 
 
         public AccountingContext() : base()
@@ -33,6 +35,7 @@ namespace ICompAccounting.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<vmenu>().HasKey(o => new { o.UserId, o.MenuId });
+            modelBuilder.Entity<UsersLocalParam>().HasKey(o => new { o.UserId, o.EnterpriseId });
             base.OnModelCreating(modelBuilder);
 
         }

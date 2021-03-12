@@ -109,7 +109,16 @@ namespace ICompAccounting.Model
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                return dc.Enterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,EDRPOU,Year,Period FROM dbo.Enterprises").ToList();
+                return dc.Enterprises.FromSqlRaw($"SELECT Id,Name,Account,MFO,EDRPOU FROM dbo.Enterprises").ToList();
+            }
+        }
+
+        public UsersLocalParam GetUsersLocalParams(int? UserId, int? EnterpriseId)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                var res = dc.UsersLocalParams.FromSqlRaw($"SELECT UserId,EnterpriseId,Year,Period FROM dbo.UsersLocalParams WHERE UserId={UserId} AND EnterpriseId={EnterpriseId}").ToList();
+                return res?.Count()>0?res.First():null;
             }
         }
 
@@ -137,7 +146,7 @@ namespace ICompAccounting.Model
             }
         }
 
-        public List<Partner> GetOrganizations(int? UserId)
+        public List<Partner> GetPartners(int? UserId)
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
@@ -168,5 +177,27 @@ namespace ICompAccounting.Model
                 return dc.OperationList.FromSqlRaw($"SELECT Id,Code,Description,Status FROM oper.OperationList WHERE Status=1").ToList();
             }
         }
+
+        public List<vOperationOut> OperationsOut(int BankId, DateTime? Dat)
+        {
+            int? DatInt = Dat.ToInt();
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                var list = dc.OperationsOut
+                    .GroupJoin(dc.Partners, o=>o.PartnerId,p=>p.KOD,(o,p)=> new { o, p } )
+                    .SelectMany(xy => xy.p.DefaultIfEmpty(), (x, y) => new vOperationOut {  OperationOut = x.o,  Partner = y })
+                    .ToList();
+                return list;
+            }
+        }
+
+        public Partner GetPartner(int Id)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.Partners.Where(x => x.KOD == Id)?.Single();
+            }
+        }
+
     }
 }

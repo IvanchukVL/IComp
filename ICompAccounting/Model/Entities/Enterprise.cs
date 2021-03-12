@@ -13,7 +13,5 @@ namespace ICompAccounting.Model.Entities
         public string Account { set; get; }
         public string MFO { set; get; }
         public string EDRPOU { set; get; }
-        public int? Year { set; get; }
-        public int? Period { set; get; }
     }
 }

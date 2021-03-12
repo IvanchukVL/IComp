@@ -1,5 +1,8 @@
 ﻿//using Microsoft.Extensions.Configuration;
 //using Microsoft.Extensions.DependencyInjection;
+using ICompAccounting.Model.Entities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,8 +20,6 @@ namespace ICompAccounting
     /// </summary>
     public partial class App : Application
     {
-
-
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show("Непередачувана помилка: " + e.Exception.Message, "Помилка додатку", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -30,12 +31,8 @@ namespace ICompAccounting
             AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
         }
 
-        //private void ConfigureServices(IServiceCollection services)
-        //{
-
-        //    // ...
-
-        //    //services.AddTransient(typeof(MainWindow));
-        //}
+        private void ConfigureServices(IServiceCollection services)
+        {
+        }
     }
 }
