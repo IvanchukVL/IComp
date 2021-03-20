@@ -18,20 +18,22 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Id партнера" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.OperationOut.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120" HorizontalAlignment="Left" />
-        <Label Content="Сума" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.OperationOut.Amount,Mode=TwoWay}" Grid.Row="2" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
-        <Label Content="Id операції" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.OperationOut.OperationId,Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />
-        <Label Content="Призначення платежу" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.OperationOut.Purpose,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120" HorizontalAlignment="Left" />
+        <Label Content="Назва партнера" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Partner.NAZVA_ORG,Mode=OneWay}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="520" IsReadOnly="True" HorizontalAlignment="Left" />
+        <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Amount,Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
+        <Label Content="Id операції" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.OperationId,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />
+        <Label Content="Призначення платежу" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Purpose,Mode=TwoWay}" Grid.Row="5" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
 
         <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="120" Height="25" Content="{Binding ButTextEditView}" Command="{Binding CommandEditView }" Margin="0 0 10 0"/>

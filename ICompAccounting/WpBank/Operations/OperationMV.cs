@@ -163,8 +163,8 @@ namespace ICompAccounting.WpBank
                 return
                   (new AppCommand(obj =>
                   {
-                      db.Update("OperationsOut", Row.OperationOut);
-                      Row.Partner = db.GetPartner((int)Row.OperationOut.PartnerId);
+                      db.Update("OperationsOut", (OperationOut)Row);
+                      //Row.Partner = db.GetPartner((int)Row.OperationOut.PartnerId);
                       EditWindow.Close();
                   }));
             }

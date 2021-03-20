@@ -28,16 +28,35 @@
         <DockPanel Grid.Row="2" Grid.Column="1">
             <uc:GridEdition DockPanel.Dock="Top"></uc:GridEdition>
             <DataGrid ItemsSource="{Binding OperationsOut}" SelectedItem="{Binding SelectedRow}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" DockPanel.Dock="Top" CanUserAddRows="False" >
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Перелік рахунків" Command="{Binding OpenWindow}">
+                            <MenuItem.Icon>
+                                <Image Source="\Images\window_list.png"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Редагувати" Command="{Binding EditRow}">
+                            <MenuItem.Icon>
+                                <Image Source="\Images\edit.png"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Видалити" Command="{Binding DeleteRow}">
+                            <MenuItem.Icon>
+                                <Image Source="\Images\trash_can_delete.png"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Код" Binding="{Binding OperationOut.PartnerId}" Width="100" IsReadOnly="True">
+                    <DataGridTextColumn Header="Код" Binding="{Binding PartnerId,Mode=OneWay}" Width="100" IsReadOnly="True">
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Отримувач" Binding="{Binding Partner.NAZVA_ORG}"  Width="500" IsReadOnly="True">
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Сума" Binding="{Binding OperationOut.Amount}" Width="200" IsReadOnly="True">
+                    <DataGridTextColumn Header="Сума" Binding="{Binding Amount}" Width="200" IsReadOnly="True">
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Призначення" Binding="{Binding OperationOut.Purpose}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn Header="Призначення" Binding="{Binding Purpose}" Width="*" IsReadOnly="True">
                     </DataGridTextColumn>
-                    <DataGridCheckBoxColumn Header="Передано" Binding="{Binding OperationOut.Exported}" Width="70" IsReadOnly="False">
+                    <DataGridCheckBoxColumn Header="Передано" Binding="{Binding Exported}" Width="70" IsReadOnly="False">
                     </DataGridCheckBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>

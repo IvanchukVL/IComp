@@ -13,7 +13,7 @@ using ICompAccounting.Model.Entities.oper;
 
 namespace ICompAccounting.Model
 {
-    public class Repository:IDisposable
+    public class Repository : IDisposable
     {
         public DbContextOptionsBuilder<AccountingContext> OptionsBuilder { set; get; }
         public AccountingContext dc;
@@ -35,7 +35,7 @@ namespace ICompAccounting.Model
         }
         public void Dispose()
         {
-            if (dc!=null)
+            if (dc != null)
                 dc.Dispose();
         }
 
@@ -50,12 +50,12 @@ namespace ICompAccounting.Model
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Rows"></param>
-        public void Update<T>(string Table, params T[] Rows) where T:class
+        public void Update<T>(string Table, params T[] Rows) where T : class
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
                 Type type = dc.GetType();
-                DbSet<T> tb = (DbSet<T>) type.GetProperty(Table).GetValue(dc);
+                DbSet<T> tb = (DbSet<T>)type.GetProperty(Table).GetValue(dc);
                 tb.UpdateRange(Rows);
                 dc.SaveChanges();
             }
@@ -118,7 +118,7 @@ namespace ICompAccounting.Model
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
                 var res = dc.UsersLocalParams.FromSqlRaw($"SELECT UserId,EnterpriseId,Year,Period FROM dbo.UsersLocalParams WHERE UserId={UserId} AND EnterpriseId={EnterpriseId}").ToList();
-                return res?.Count()>0?res.First():null;
+                return res?.Count() > 0 ? res.First() : null;
             }
         }
 
@@ -164,7 +164,7 @@ namespace ICompAccounting.Model
 
         public DbSet<AccountPurpose> GetAccountPurposes(int? AccountId)
         {
-            dc.AccountPurposes.Where(x=>x.AccountId==AccountId).Load();
+            dc.AccountPurposes.Where(x => x.AccountId == AccountId).Load();
             return dc.AccountPurposes;
 
             //var list = dc.AccountPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Purpose,Status FROM org.AccountPurposes WHERE AccountId={AccountId}").Load();
@@ -184,8 +184,17 @@ namespace ICompAccounting.Model
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
                 var list = dc.OperationsOut
-                    .GroupJoin(dc.Partners, o=>o.PartnerId,p=>p.KOD,(o,p)=> new { o, p } )
-                    .SelectMany(xy => xy.p.DefaultIfEmpty(), (x, y) => new vOperationOut {  OperationOut = x.o,  Partner = y })
+                    .GroupJoin(dc.Partners, o => o.PartnerId, p => p.KOD, (o, p) => new { o, p })
+                    .SelectMany(xy => xy.p.DefaultIfEmpty(), (x, y) => new vOperationOut
+                    {
+                        Id = x.o.Id,
+                        PartnerId = x.o.PartnerId,
+                        Exported = x.o.Exported,
+                        OperationId = x.o.OperationId,
+                        OperDat = x.o.OperDat,
+                        Purpose = x.o.Purpose,
+                        Partner = y
+                    })
                     .ToList();
                 return list;
             }
