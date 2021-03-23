@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"      
         xmlns:local="clr-namespace:ICompAccounting.WpBank.Operations"
         mc:Ignorable="d"
         Title="OperationEditView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
@@ -25,7 +26,14 @@
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Id партнера" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PropertyChanged">
+                    <i:InvokeCommandAction 
+                        Command="{Binding RefreshRow}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <Label Content="Назва партнера" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
         <TextBox Text="{Binding Row.Partner.NAZVA_ORG,Mode=OneWay}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="520" IsReadOnly="True" HorizontalAlignment="Left" />
         <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />

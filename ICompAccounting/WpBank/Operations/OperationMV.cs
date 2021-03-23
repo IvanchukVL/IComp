@@ -170,6 +170,18 @@ namespace ICompAccounting.WpBank
             }
         }
 
+        public AppCommand RefreshRow
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      MessageBox.Show("Проба!");
+                  }));
+            }
+        }
+
         public AppCommand CancelRow
         {
             get
