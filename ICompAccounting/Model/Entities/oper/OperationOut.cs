@@ -11,6 +11,7 @@ namespace ICompAccounting.Model.Entities.oper
     public class OperationOut 
     {
         public int? Id { set; get; }
+        //public string NAZVA_ORG { set; get; }
         public int? BankId { set; get; }
         public int? OperDat { set; get; }
         public int? PartnerId { set; get; }
@@ -27,16 +28,26 @@ namespace ICompAccounting.Model.Entities.oper
         public void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         int? partnerId;
-        public int? PartnerId
+        public new int? PartnerId
         {
             set
             {
                 partnerId = value;
+                if(PropertyChanged != null)
+                {
+                    var db = new Repository(AppSettings.AccountingConnection);
+                    Partner = db.GetPartner((int)partnerId);
+                }
                 OnPropertyChanged("PartnerId");
+                //var db = new Repository(AppSettings.AccountingConnection);
+
+                //Partner = db.GetPartner((int)partnerId);
             }
             get
             {

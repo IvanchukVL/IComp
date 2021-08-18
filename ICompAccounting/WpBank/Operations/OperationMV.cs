@@ -177,7 +177,7 @@ namespace ICompAccounting.WpBank
                 return
                   (new AppCommand(obj =>
                   {
-                      MessageBox.Show("Проба!");
+                      SelectedRow.Partner = db.GetPartner(Convert.ToInt32(SelectedRow.PartnerId));
                   }));
             }
         }
