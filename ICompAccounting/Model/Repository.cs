@@ -204,7 +204,8 @@ namespace ICompAccounting.Model
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                return dc.Partners.Where(x => x.KOD == Id)?.Single();
+                var list = dc.Partners.Where(x => x.KOD == Id).ToList();
+                return list?.Count > 0 ? list.Single():null;
             }
         }
 
