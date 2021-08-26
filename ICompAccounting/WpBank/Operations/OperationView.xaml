@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:ICompAccounting.WpBank"
       xmlns:mv="clr-namespace:ICompAccounting.WpBank"
       xmlns:uc="clr-namespace:ICompAccounting.UC"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"      
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Денні операції по банку">
@@ -30,11 +31,6 @@
             <DataGrid ItemsSource="{Binding OperationsOut}" SelectedItem="{Binding SelectedRow}" Style="{StaticResource MainDataGridStyle}" CellStyle="{StaticResource MainCellStyle}" DockPanel.Dock="Top" CanUserAddRows="False" >
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Перелік рахунків" Command="{Binding OpenWindow}">
-                            <MenuItem.Icon>
-                                <Image Source="\Images\window_list.png"></Image>
-                            </MenuItem.Icon>
-                        </MenuItem>
                         <MenuItem Header="Редагувати" Command="{Binding EditRow}">
                             <MenuItem.Icon>
                                 <Image Source="\Images\edit.png"></Image>
@@ -47,6 +43,11 @@
                         </MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding EditRow}" CommandParameter="{Binding SelectedItem, ElementName=listBox}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Код" Binding="{Binding PartnerId,Mode=OneWay}" Width="100" IsReadOnly="True">
                     </DataGridTextColumn>
@@ -61,7 +62,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
-
-
     </Grid>
 </Page>

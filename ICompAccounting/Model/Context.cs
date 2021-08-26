@@ -18,6 +18,8 @@ namespace ICompAccounting.Model
         public DbSet<Partner> Partners { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountPurpose> AccountPurposes { get; set; }
+        public DbSet<vAccountsPurposes> vAccountsPurposes { get; set; }
+        public DbSet<vPurposes> vPurposes { get; set; }
         public DbSet<Operation> OperationList { get; set; }
         public DbSet<UsersLocalParam> UsersLocalParams { get; set; }
         public DbSet<OperationOut> OperationsOut { get; set; }

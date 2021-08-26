@@ -6,14 +6,15 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"      
         xmlns:local="clr-namespace:ICompAccounting.WpBank.Operations"
         mc:Ignorable="d"
-        Title="OperationEditView" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="OperationEditView" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
-            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="80*"></ColumnDefinition>
             <ColumnDefinition Width="200*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -38,12 +39,31 @@
         <TextBox Text="{Binding Row.Partner.NAZVA_ORG,Mode=OneWay}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="520" IsReadOnly="True" HorizontalAlignment="Left" />
         <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
         <TextBox Text="{Binding Row.Amount,Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
-        <Label Content="Id операції" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.OperationId,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />
-        <Label Content="Призначення платежу" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Purpose,Mode=TwoWay}" Grid.Row="5" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
+        <Label Content="Рахунок" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
+        <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
+                      SelectedValuePath="Id" 
+                      DisplayMemberPath="IBAN"
+                      ItemsSource="{Binding Row.Accounts}" 
+                      SelectedValue="{Binding Row.AccountId, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
+                      Width="350" 
+                      Height="23" 
+                      >
+        </ComboBox>
+        <Label Content="Id операції" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" />
+        <ComboBox  Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
+                      SelectedValuePath="Id" 
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Row.vPurposes}" 
+                      SelectedValue="{Binding Row.OperationId, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
+                      Width="250" 
+                      Height="23" 
+                      >
+        </ComboBox>
+        <!--<TextBox Text="{Binding Row.OperationId,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />-->
+        <Label Content="Призначення платежу" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Purpose,Mode=TwoWay}" Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
 
-        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="120" Height="25" Content="{Binding ButTextEditView}" Command="{Binding CommandEditView }" Margin="0 0 10 0"/>
             <Button Width="120" Height="25" Content="Відміна" Command="{Binding CancelRow }"/>
         </StackPanel>

@@ -88,6 +88,25 @@ namespace ICompAccounting.Model
             }
         }
 
+        public List<Account> GetAccountsPurposes(int? PartnerId)
+        {
+            using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+            {
+                return dc.Accounts.FromSqlRaw($"SELECT AccountId,PurposeId,Description,IBAN,Purpose,OperationText " +
+                                                $"FROM dbo.vAccountPurposes " +
+                                                $"WHERE a.PartnerId={PartnerId} and a.Status=1").ToList();
+            }
+        }
+
+        //public List<AccountPurposes> GetAccountPurposes(int? PartnerId)
+        //{
+        //    using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+        //    {
+        //        return dc.Accounts.FromSqlRaw($"SELECT Id,PartnerId,IBAN,MFO,Status FROM dbo.Accounts WHERE PartnerId={PartnerId}").ToList();
+        //    }
+        //}
+
+
     }
 }
 //SELECT TOP(1000) [Id]

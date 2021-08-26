@@ -170,6 +170,29 @@ namespace ICompAccounting.Model
             //var list = dc.AccountPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Purpose,Status FROM org.AccountPurposes WHERE AccountId={AccountId}").Load();
         }
 
+        public List<vAccountsPurposes> GetAccountsPurposes(int? PartnerId)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.vAccountsPurposes.FromSqlRaw($"SELECT AccountId,PurposeId,Description,IBAN,Purpose,OperationText " +
+                                                $"FROM dbo.vAccountPurposes " +
+                                                $"WHERE PartnerId={PartnerId}").ToList();
+            }
+        }
+
+        public List<vPurposes> GetPurposes(int? AccountId)
+        {
+            if (AccountId == null)
+                return new List<vPurposes>();
+
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.vPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Description " +
+                                                $"FROM dbo.vPurposes " +
+                                                $"WHERE AccountId={AccountId}").ToList();
+            }
+        }
+
         public List<Operation> GetOperationList()
         {
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
@@ -188,8 +211,11 @@ namespace ICompAccounting.Model
                     .SelectMany(xy => xy.p.DefaultIfEmpty(), (x, y) => new vOperationOut
                     {
                         Id = x.o.Id,
+                        BankId = x.o.BankId,
+                        Amount = x.o.Amount,
                         PartnerId = x.o.PartnerId,
                         Exported = x.o.Exported,
+                        AccountId = x.o.AccountId,
                         OperationId = x.o.OperationId,
                         OperDat = x.o.OperDat,
                         Purpose = x.o.Purpose,
