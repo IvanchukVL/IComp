@@ -187,7 +187,7 @@ namespace ICompAccounting.Model
 
             using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
             {
-                return dc.vPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Description " +
+                return dc.vPurposes.FromSqlRaw($"SELECT Id,AccountId,OperationId,Description,PurposeTemplate " +
                                                 $"FROM dbo.vPurposes " +
                                                 $"WHERE AccountId={AccountId}").ToList();
             }

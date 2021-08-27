@@ -39,7 +39,7 @@ namespace ICompAccounting.Model.Entities.org
         public int? AccountId { set; get; }
         public int? OperationId { set; get; }
         public string Description { set; get; }
-
+        public string PurposeTemplate { set; get; }
     }
 
 }

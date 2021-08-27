@@ -1,12 +1,43 @@
-﻿<Window x:Class="ICompAccounting.WpBank.Operations.EditOperationView"
+﻿
+    <Window x:Class="ICompAccounting.WpBank.Operations.EditOperationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"      
-        xmlns:local="clr-namespace:ICompAccounting.WpBank.Operations"
+        xmlns:local="clr-namespace:ICompAccounting.WpBank"
         mc:Ignorable="d"
         Title="OperationEditView" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <Window.Resources>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="5,0,5,0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,2,40,2" />
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="true">
+                            <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="10"
+                                    ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
+                                </TextBlock>
+                            </Border>
+                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                <Border BorderBrush="red" BorderThickness="1" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -26,6 +57,7 @@
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
+
         <Label Content="Id партнера" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
         <TextBox x:Name="cPartnerId" Text="{Binding Row.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left">
             <!--<i:Interaction.Triggers>
@@ -38,13 +70,13 @@
         <Label Content="Назва партнера" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
         <TextBox Text="{Binding Row.Partner.NAZVA_ORG,Mode=OneWay}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="520" IsReadOnly="True" HorizontalAlignment="Left" />
         <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Amount,Mode=TwoWay}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
+        <TextBox Text="{Binding Row.Amount }" Style="{StaticResource textBoxInError}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
         <Label Content="Рахунок" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
         <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
                       SelectedValuePath="Id" 
                       DisplayMemberPath="IBAN"
                       ItemsSource="{Binding Row.Accounts}" 
-                      SelectedValue="{Binding Row.AccountId, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
+                      SelectedValue="{Binding Row.AccountId, UpdateSourceTrigger=PropertyChanged}" 
                       Width="350" 
                       Height="23" 
                       >
@@ -54,14 +86,14 @@
                       SelectedValuePath="Id" 
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Row.vPurposes}" 
-                      SelectedValue="{Binding Row.OperationId, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
+                      SelectedValue="{Binding Row.OperationId, UpdateSourceTrigger=PropertyChanged}" 
                       Width="250" 
                       Height="23" 
                       >
         </ComboBox>
         <!--<TextBox Text="{Binding Row.OperationId,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />-->
         <Label Content="Призначення платежу" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Purpose,Mode=TwoWay}" Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Purpose, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
 
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="120" Height="25" Content="{Binding ButTextEditView}" Command="{Binding CommandEditView }" Margin="0 0 10 0"/>
@@ -69,4 +101,5 @@
         </StackPanel>
 
     </Grid>
+    
 </Window>

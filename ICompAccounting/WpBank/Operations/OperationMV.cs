@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace ICompAccounting.WpBank
 {
-    public partial class OperationMV: INotifyPropertyChanged
+    public partial class OperationMV: INotifyPropertyChanged,IDataErrorInfo
     {
         public Repository db { set; get; }
         public EditOperationView EditWindow { get; set; }
@@ -35,5 +35,33 @@ namespace ICompAccounting.WpBank
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Row.Purpose":
+                        if (string.IsNullOrEmpty(Row.Purpose))
+                        {
+                            error = "Призначення може містити від 0 до 250 символів!";
+                        }
+                        break;
+                    case "Name":
+                        //Обработка ошибок для свойства Name
+                        break;
+                    case "Position":
+                        //Обработка ошибок для свойства Position
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error => string.Empty;
+
     }
 }

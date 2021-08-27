@@ -122,6 +122,21 @@ namespace ICompAccounting.WpBank
             }
         }
 
+        public AppCommand KeyIns
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      if ((obj as KeyEventArgs).Key == Key.Insert)
+                      {
+                          NewRow.Execute();
+                      }
+                  }));
+            }
+        }
+
         /// <summary>
         /// Подвійний клік мишкою на видаткових операціях
         /// </summary>

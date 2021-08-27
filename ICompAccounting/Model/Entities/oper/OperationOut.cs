@@ -136,9 +136,9 @@ namespace ICompAccounting.Model.Entities.oper
             set
             {
                 base.OperationId = value;
-                if (PropertyChanged != null)
+                if (PropertyChanged != null && value != null)
                 {
-                    Purpose = "Заготовка призначення";
+                    Purpose = vPurposes.FirstOrDefault(x => x.Id == value).PurposeTemplate;
                 }
                 OnPropertyChanged("OperationId");
             }
@@ -152,6 +152,9 @@ namespace ICompAccounting.Model.Entities.oper
         {
             set
             {
+                //if (string.IsNullOrEmpty(value) || value.Length>255)
+                //    throw new ArgumentException("Призначення може містити від 0 до 250 символів!");
+
                 base.Purpose = value;
                 OnPropertyChanged("Purpose");
             }

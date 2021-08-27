@@ -23,5 +23,10 @@ namespace ICompAccounting.WpBank
         {
             InitializeComponent();
         }
+
+        private void DataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }
