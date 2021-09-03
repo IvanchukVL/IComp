@@ -23,9 +23,78 @@ namespace ICompAccounting.Model.Entities.oper
         public bool? Exported { set; get; }
     }
 
-    public class vOperationOut : OperationOut, INotifyPropertyChanged
+    public class vOperationOut : OperationOut, INotifyPropertyChanged, IDataErrorInfo
     {
         Repository db { set; get; }
+        public bool IsValidating = false;
+        private static readonly string[] ValidatedProperties = { "Purpose", "Amount", "PartnerId", "AccountId", "Position" };
+        public bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                {
+                    if (!string.IsNullOrEmpty(GetValidationError(property)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        private string GetValidationError(string columnName)
+        {
+            string result = String.Empty;
+            if (!IsValidating)
+                return result;
+
+            switch (columnName)
+            {
+                case "Purpose":
+                    if (string.IsNullOrEmpty(Purpose))
+                        result = "Призначення може містити від 0 до 250 символів!";
+                    break;
+                case "Amount":
+                    if (Amount == null || Amount == 0)
+                        result = "Сума не може містити пусте або нульове значення!";
+                    break;
+                case "PartnerId":
+                    if (PartnerId == null)
+                        result = "Не вказано Id партнера!";
+                    break;
+                case "AccountId":
+                    if (AccountId == null)
+                        result = "Не вказано рахунку партнера!";
+                    break;
+                case "Position":
+
+                    break;
+            }
+
+            return result;
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                return GetValidationError(columnName);
+            }
+        }
+
+        public string Error
+        {
+           get { throw new NotImplementedException();}
+        }
+
+        public void Validate()
+        {
+            foreach (string property in ValidatedProperties)
+            {
+                OnPropertyChanged(property);
+            }
+        }
 
         List<Account> _Accounts;
         public List<Account> Accounts
@@ -152,15 +221,25 @@ namespace ICompAccounting.Model.Entities.oper
         {
             set
             {
-                //if (string.IsNullOrEmpty(value) || value.Length>255)
-                //    throw new ArgumentException("Призначення може містити від 0 до 250 символів!");
-
                 base.Purpose = value;
                 OnPropertyChanged("Purpose");
             }
             get
             {
                 return base.Purpose;
+            }
+        }
+
+        public new decimal? Amount
+        {
+            set
+            { 
+                base.Amount = value;
+                //OnPropertyChanged("Amount");
+            }
+            get
+            {
+                return base.Amount;
             }
         }
 

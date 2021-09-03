@@ -30,9 +30,9 @@ namespace ICompAccounting.WpBank
                       ButTextEditView = "Створити";
                       Row = new vOperationOut()
                       {
-                           BankId = 1,
-                           Exported = false,
-                            OperDat = 232132
+                          BankId = 1,
+                          Exported = false,
+                          OperDat = 232132
                       };
                       CommandEditView = SaveNewRow;
                       EditWindow.ShowDialog();
@@ -75,9 +75,14 @@ namespace ICompAccounting.WpBank
                 return
                   (new AppCommand(obj =>
                   {
-                      db.Insert("OperationsOut", (OperationOut)Row);
-                      OperationsOut.Add(Row);
-                      EditWindow.Close();
+                      Row.IsValidating = true;
+                      Row.Validate();
+                      if (Row.IsValid)
+                      {
+                          db.Insert("OperationsOut", (OperationOut)Row);
+                          OperationsOut.Add(Row);
+                          EditWindow.Close();
+                      }
                   }));
             }
         }
@@ -89,9 +94,14 @@ namespace ICompAccounting.WpBank
                 return
                   (new AppCommand(obj =>
                   {
-                      db.Update("OperationsOut", (OperationOut)Row);
-                      SelectedRow.SetValues(Row);  
-                      EditWindow.Close();
+                      Row.IsValidating = true;
+                      Row.Validate();
+                      if (Row.IsValid)
+                      {
+                          db.Update("OperationsOut", (OperationOut)Row);
+                          SelectedRow.SetValues(Row);
+                          EditWindow.Close();
+                      }
                   }));
             }
         }

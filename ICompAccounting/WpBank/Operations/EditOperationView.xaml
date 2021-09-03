@@ -16,27 +16,6 @@
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
 
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,2,40,2" />
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <DockPanel LastChildFill="true">
-                            <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="10"
-                                    ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
-                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
-                                </TextBlock>
-                            </Border>
-                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
-                                <Border BorderBrush="red" BorderThickness="1" />
-                            </AdornedElementPlaceholder>
-                        </DockPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -59,7 +38,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Id партнера" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox x:Name="cPartnerId" Text="{Binding Row.PartnerId,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left">
+        <TextBox Text="{Binding Row.PartnerId,ValidatesOnDataErrors=True}"  Style="{StaticResource TextError}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left">
             <!--<i:Interaction.Triggers>
                 <i:EventTrigger EventName="LostFocus">
                     <i:InvokeCommandAction 
@@ -68,15 +47,16 @@
             </i:Interaction.Triggers>-->
         </TextBox>
         <Label Content="Назва партнера" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Partner.NAZVA_ORG,Mode=OneWay}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="520" IsReadOnly="True" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Partner.NAZVA_ORG}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="500" IsReadOnly="True" HorizontalAlignment="Left" />
         <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Amount }" Style="{StaticResource textBoxInError}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="320" HorizontalAlignment="Left" Grid.ColumnSpan="2" />
+        <TextBox Text="{Binding Row.Amount,ValidatesOnDataErrors=True }" Style="{StaticResource TextError}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Height="20" Width="150" HorizontalAlignment="Left" />
         <Label Content="Рахунок" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
         <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
                       SelectedValuePath="Id" 
                       DisplayMemberPath="IBAN"
                       ItemsSource="{Binding Row.Accounts}" 
-                      SelectedValue="{Binding Row.AccountId, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedValue="{Binding Row.AccountId, ValidatesOnDataErrors=True}" 
+                      Style="{StaticResource ComboError}"
                       Width="350" 
                       Height="23" 
                       >
@@ -86,14 +66,15 @@
                       SelectedValuePath="Id" 
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Row.vPurposes}" 
-                      SelectedValue="{Binding Row.OperationId, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedValue="{Binding Row.OperationId, ValidatesOnDataErrors=True}" 
+                      Style="{StaticResource ComboError}"
                       Width="250" 
                       Height="23" 
                       >
         </ComboBox>
         <!--<TextBox Text="{Binding Row.OperationId,Mode=TwoWay}" Grid.Row="4" Grid.Column="2" Margin="5,5,0,5" MaxLength="12" Width="150" HorizontalAlignment="Left" />-->
         <Label Content="Призначення платежу" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Purpose, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="530" Height="100" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Purpose, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource TextError}" Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" MaxLength="250" Width="500" Height="100" HorizontalAlignment="Left" />
 
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="120" Height="25" Content="{Binding ButTextEditView}" Command="{Binding CommandEditView }" Margin="0 0 10 0"/>
