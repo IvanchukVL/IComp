@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"      
         xmlns:local="clr-namespace:ICompAccounting.WpBank"
         mc:Ignorable="d"
-        Title="OperationEditView" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="{Binding TitleEditView}" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
 
@@ -24,32 +24,28 @@
             <ColumnDefinition Width="200*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
             <RowDefinition Height="120"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Content="Id партнера" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.PartnerId,ValidatesOnDataErrors=True}"  Style="{StaticResource TextError}" Grid.Row="1" Grid.Column="2" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="LostFocus">
-                    <i:InvokeCommandAction 
-                        Command="{Binding RefreshRow}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
-        </TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+            <TextBox Text="{Binding Row.PartnerId,ValidatesOnDataErrors=True}"  Style="{StaticResource TextError}" MaxLength="10" Margin="5,5,0,5" Width="120"  HorizontalAlignment="Left"/>
+            <Button Width="35" Height="25" Content="..." Command="{Binding OpenFindAccount}" />
+        </StackPanel>
         <Label Content="Назва партнера" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Partner.NAZVA_ORG}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="500" IsReadOnly="True" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Partner.NAZVA_ORG}" Style="{StaticResource TextError}" Grid.Row="2" Grid.Column="2" MaxLength="150" Margin="5,5,0,5" Width="500" IsReadOnly="True" HorizontalAlignment="Left" />
         <Label Content="Сума" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" />
-        <TextBox Text="{Binding Row.Amount,ValidatesOnDataErrors=True }" Style="{StaticResource TextError}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Height="20" Width="150" HorizontalAlignment="Left" />
+        <TextBox Text="{Binding Row.Amount,ValidatesOnDataErrors=True }" Style="{StaticResource TextError}" Grid.Row="3" Grid.Column="2" Margin="5,5,0,5" MaxLength="150" Width="150" HorizontalAlignment="Left" />
         <Label Content="Рахунок" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" />
         <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
                       SelectedValuePath="Id" 

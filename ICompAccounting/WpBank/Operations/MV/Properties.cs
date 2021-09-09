@@ -1,5 +1,7 @@
 ﻿using ICompAccounting.Common;
 using ICompAccounting.Model.Entities.oper;
+using ICompAccounting.Model.Entities.org;
+using ICompAccounting.WpBank.Operations.MV.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +15,20 @@ namespace ICompAccounting.WpBank
         public string ButTextEditView { set; get; }
         public AppCommand CommandEditView { set; get; }
         public ObservableCollection<Operation> OperationsList { get; set; }
+        public ObservableCollection<Operation> vPartners { get; set; }
+
+        ObservableCollection<vPartnersAccount> _vPartnersAccounts;
+        public ObservableCollection<vPartnersAccount> vPartnersAccounts 
+        {
+            set
+            {
+                _vPartnersAccounts = value;
+                OnPropertyChanged("vPartnersAccounts");
+            }
+            get { return _vPartnersAccounts; }
+        }
+        public vPartnersAccount SelectedPartnerAccount { get; set; }
+        public string FindText { get; set; }
 
         vOperationOut selectedRow;
         public vOperationOut SelectedRow 

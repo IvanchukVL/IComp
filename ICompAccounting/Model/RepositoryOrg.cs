@@ -98,6 +98,16 @@ namespace ICompAccounting.Model
             }
         }
 
+        //public List<vPartnersAccount> GetPartnerAccounts(string ParnerName)
+        //{
+        //    using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))
+        //    {
+        //        return dc.vPartnersAccounts.FromSqlRaw($"SELECT TOP 1000 KOD,KOD_ZKPO,NAZVA_ORG,IBAN,Description " +
+        //                                        $"FROM org.vPartnersAccounts " +
+        //                                        $"WHERE NAZVA_ORG like '%{ParnerName}%' and a.Status=1").ToList();
+        //    }
+        //}
+
         //public List<AccountPurposes> GetAccountPurposes(int? PartnerId)
         //{
         //    using (OrganizationsContext dc = new OrganizationsContext(OptionsBuilder.Options))

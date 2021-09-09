@@ -23,6 +23,7 @@ namespace ICompAccounting.Model
         public DbSet<Operation> OperationList { get; set; }
         public DbSet<UsersLocalParam> UsersLocalParams { get; set; }
         public DbSet<OperationOut> OperationsOut { get; set; }
+        public DbSet<vPartnersAccount> vPartnersAccounts { get; set; }
 
 
         public AccountingContext() : base()

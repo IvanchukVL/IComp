@@ -2,6 +2,8 @@
 using ICompAccounting.Model.Entities.oper;
 using ICompAccounting.Model.Entities.org;
 using ICompAccounting.WpBank.Operations;
+using ICompAccounting.WpBank.Operations.MV.Entities;
+using ICompAccounting.WpBank.Operations.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -196,6 +198,47 @@ namespace ICompAccounting.WpBank
             }
         }
 
+        public AppCommand OpenFindAccount
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      FindAccountWindow = new FindAccount();
+                      vPartnersAccounts = new ObservableCollection<vPartnersAccount>(db.GetPartnerAccounts(""));
+                      FindAccountWindow.DataContext = this;
+                      FindAccountWindow.ShowDialog();
+                  }));
+            }
+        }
+
+        public AppCommand FindAccount
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      vPartnersAccounts = new ObservableCollection<vPartnersAccount>(db.GetPartnerAccounts(FindText));
+                      //vPartnersAccounts.CollectionChanged();
+                  }));
+            }
+        }
+
+        public AppCommand InsertValues
+        {
+            get
+            {
+                return
+                  (new AppCommand(obj =>
+                  {
+                      Row.PartnerId = SelectedPartnerAccount.KOD;
+                      Row.AccountId = SelectedPartnerAccount.AccountId;
+                      FindAccountWindow.Close();
+                  }));
+            }
+        }
 
 
 

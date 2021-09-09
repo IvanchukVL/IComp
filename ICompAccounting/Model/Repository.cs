@@ -10,6 +10,7 @@ using System.Linq;
 using ICompAccounting.Model.Entities;
 using ICompAccounting.Model.Entities.org;
 using ICompAccounting.Model.Entities.oper;
+using ICompAccounting.WpBank.Operations.MV.Entities;
 
 namespace ICompAccounting.Model
 {
@@ -234,6 +235,17 @@ namespace ICompAccounting.Model
                 return list?.Count > 0 ? list.Single():null;
             }
         }
+
+        public List<vPartnersAccount> GetPartnerAccounts(string ParnerName)
+        {
+            using (AccountingContext dc = new AccountingContext(OptionsBuilder.Options))
+            {
+                return dc.vPartnersAccounts.FromSqlRaw($"SELECT TOP 1000 KOD,KOD_ZKPO,NAZVA_ORG,AccountId,IBAN,Description " +
+                                                $"FROM org.vPartnersAccounts " +
+                                                $"WHERE NAZVA_ORG like '%{ParnerName}%'").ToList();
+            }
+        }
+
 
     }
 }

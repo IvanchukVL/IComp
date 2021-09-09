@@ -47,7 +47,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="WpBank\Operations\OperationView.xaml.cs">
+    <Compile Update="WpBank\Operations\Views\Operations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WpMain\Authentication\Authentication.xaml.cs">
@@ -130,7 +130,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="WpBank\Operations\OperationView.xaml">
+    <Page Update="WpBank\Operations\Views\Operations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpMain\Authentication\Authentication.xaml">

@@ -16,7 +16,10 @@
     <Compile Update="UC\GridNavigation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WpBank\Operations\EditOperationView.xaml.cs">
+    <Compile Update="WpBank\Operations\Views\EditOperation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WpBank\Operations\Views\FindAccount.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WpReferences\Accounts\AccountsView.xaml.cs">
@@ -42,10 +45,13 @@
     <Page Update="UC\GridNavigation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\Operations\EditOperationView.xaml">
+    <Page Update="WpBank\Operations\Views\EditOperation.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WpBank\Operations\OperationView.xaml">
+    <Page Update="WpBank\Operations\Views\FindAccount.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WpBank\Operations\Views\Operations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WpMain\Authentication\Authentication.xaml">
