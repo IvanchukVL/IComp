@@ -33,7 +33,8 @@
                 CanUserAddRows="True"  
                 Grid.Row="3" 
                 Grid.Column="1" 
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                >
                 <DataGrid.Columns>
                     <DataGridComboBoxColumn 
                         Header="Тип операції" 
@@ -42,7 +43,7 @@
                         CellStyle="{StaticResource CellGridCombo}" 
                         ItemsSource="{Binding Source={StaticResource OperationList}}" 
                         SelectedValueBinding="{Binding OperationId}" 
-                        SelectedValuePath="Id" 
+                        SelectedValuePath="Id"
                         DisplayMemberPath="Description">
                     </DataGridComboBoxColumn>
                     <DataGridTextColumn Header="Призначення платежу" Binding="{Binding Purpose}" Width="*"/>

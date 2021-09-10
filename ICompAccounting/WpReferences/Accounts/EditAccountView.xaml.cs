@@ -21,5 +21,6 @@ namespace ICompAccounting.WpReferences.Accounts
         {
             InitializeComponent();
         }
+
     }
 }
